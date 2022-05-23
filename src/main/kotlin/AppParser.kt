@@ -1,20 +1,14 @@
 import java.io.File
-import java.time.LocalDate
-import java.time.Year
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
-import java.util.*
-
-
 class AppParser {
 
     fun parseFile(fileName: String): List<GoogleApp> {
         val appList = mutableListOf<GoogleApp>()
         val file = File(fileName)
+        var header = 0
         if (file.exists()) {
             file.forEachLine {
+                if (header >0 ){
                 val mList = it.split(",")
-
                 val appName = mList[0]
                 val company = mList[1]
                 val category = mList[2]
@@ -35,9 +29,11 @@ class AppParser {
                     requiresAndroid = requiresAndroid
                 )
                 appList.add(app)
+                }else {
+                    header++
+                }
             }
         }
         return appList
     }
-
 }
