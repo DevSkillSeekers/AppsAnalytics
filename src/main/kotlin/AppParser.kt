@@ -23,14 +23,12 @@ class AppParser {
                 val installs = mList[5].toBigInteger()
                 val currentVersion = mList[6]
                 val requiresAndroid = mList[7]
-                val updatedLong = convertToDate(updatedString)
 
                 val app = GoogleApp(
                     appName = appName,
                     company = company,
                     category = category,
                     updatedDate = updatedString,
-                    updatedDateLong = updatedLong,
                     size = size,
                     installs = installs,
                     currentVersion = currentVersion,
@@ -40,24 +38,6 @@ class AppParser {
             }
         }
         return appList
-    }
-
-    private fun convertToDate(dateString: String): Long {
-        val months = listOf("January", "February", "March", "April", "May", "June",
-                            "July", "August", "September", "October", "November", "December")
-
-        val dateList = dateString.split(" ")
-        val indexOfMonth = months.indexOf(dateList[0])
-        val day = dateList[1].toInt()
-        val year = dateList[2].toInt()
-
-        var dateNewFormat = if (indexOfMonth < 9) "0${indexOfMonth+1}" else "${indexOfMonth+1}"
-        dateNewFormat += if (day<10) "-0$day-${year}" else "-$day-${year}"
-
-        val formatter = DateTimeFormatter.ofPattern("MM-dd-uuuu", Locale.ENGLISH)
-        val date = LocalDate.parse(dateNewFormat, formatter)
-        val millisecond: Long = date.atStartOfDay(ZoneOffset.MIN).toInstant().toEpochMilli()
-        return millisecond
     }
 
 }
