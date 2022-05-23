@@ -31,6 +31,7 @@ class GoogleApp (
         val date = LocalDate.parse(dateNewFormat, formatter)
 
         val millisecond: Long = date.atStartOfDay(ZoneOffset.MIN).toInstant().toEpochMilli()
+        println(millisecond)
         return millisecond
     }
 
