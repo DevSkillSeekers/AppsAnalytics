@@ -1,8 +1,10 @@
+import parser.AppParser
+import utilities.Constant
+
 fun main(args: Array<String>) {
-    val parser = AppParser()
-    val appList = parser.parseFile("google_play.csv")
-    val analyzer = Analyzer(appList)
+    val apps = AppParser().parseFile(Constant.FILE_NAME)
 
-    print("The Oldest App is:\n${analyzer.findOldestApp()}")
-
+    for(i in 0..10){
+        println(apps[i].updatedDate.toString())
+    }
 }
