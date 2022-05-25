@@ -25,5 +25,11 @@ class Analyzer() {
             .size.div(apps.size.toDouble()).times(100)
             .times(100).roundToInt().toDouble() / 100
     }
+    fun findAppsByCompany(companyName: String,apps: List<App>):Int{
+
+      return apps.filter { it.company.contains(companyName,true)}.size
+
+
+    }
 
 }

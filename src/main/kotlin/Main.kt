@@ -9,4 +9,6 @@ fun main(args: Array<String>) {
             "\n${analyzer.findOldestApp(apps)}")
 
     println("the percentage of Medical apps:\n${analyzer.getPercentageOfCategory(apps,"Medical")}")
+
+    println("Number of apps that developed by google "+"\n${analyzer.findAppsByCompany("Google",apps)}")
 }
