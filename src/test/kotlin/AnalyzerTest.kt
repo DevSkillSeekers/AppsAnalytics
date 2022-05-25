@@ -1,7 +1,13 @@
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.function.Executable
+import parser.AppParser
+import utilities.Constant
+import utilities.convertStringToDate
+import java.text.SimpleDateFormat
 
 internal class AnalyzerTest{
-
 
     private lateinit var analyzer: Analyzer
 
@@ -48,13 +54,13 @@ internal class AnalyzerTest{
 
 
     @Test
-    fun should_ReturnMinus1_When_EmptyList(){
+    fun should_ReturnNull_When_EmptyList(){
         //Given emptyList
         val app = listOf<App>()
         //when search for the oldest app
         val result = Analyzer().findOldestApp(app)
         //then check the result
-        assertEquals("-1",result)
+        assertEquals(null,result)
     }
 
     @Test
@@ -93,7 +99,7 @@ internal class AnalyzerTest{
         //Given date with different format
         val date = "5 5 2022"
         //when convert StringDate to date
-        val wrongFormatException:Executable =Executable{ convertStringToDate(date)}
+        val wrongFormatException: Executable =Executable{ convertStringToDate(date)}
         //then check the result
         assertThrows(Exception::class.java,wrongFormatException)
     }
