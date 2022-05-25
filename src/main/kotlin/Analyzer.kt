@@ -20,11 +20,9 @@ class Analyzer() {
     }
 
     fun getPercentageOfCategory(apps: List<App>,categoryName:String):Double{
-        return if (apps.isNotEmpty())
-         apps.filter { it.category.contains(categoryName,true) }
+        return apps.filter { it.category.contains(categoryName,true) }
             .size.div(apps.size.toDouble()).times(100)
             .times(100).roundToInt().toDouble() / 100
-        else -1.0
     }
     fun findAppsByCompany(companyName: String,apps: List<App>):Int{
 
@@ -33,11 +31,13 @@ class Analyzer() {
 
     }
 
+
+    // move string "Varies with device" to constant file
     fun getLargestApp(apps: List<App>,size:Int):List<App>?{
         if (apps.isNotEmpty()) {
             val list = mutableMapOf<App,Long>()
 
-             apps.filterNot { it.size.contains("Varies", true) }
+             apps.filterNot { it.size.contains("Varies with device", true) }
                  .apply {
                     onEach {
                        list[it] = convertToNumber(it.size)
@@ -45,17 +45,7 @@ class Analyzer() {
                  }
             return list.toList().sortedByDescending { (_, value) -> value}.toMap().keys.toList().take(size)
         }
-        return null
-    }
 
-    fun percentageAppsRunningOnAndroid9(apps: List<App>): String?{
-        if (apps.isEmpty()) return null
-        apps.forEach { it ->
-            if (it.requiresAndroid.contains("9 and up"))
-                return String.format("%.1f", 100.0 * apps.count {
-                    it.requiresAndroid == "9 and up"
-                } / apps.size)
-        }
         return null
     }
 
