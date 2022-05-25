@@ -1,7 +1,7 @@
 package parser
 
 import utilities.Constant
-import convertStringToDate
+import utilities.convertStringToDate
 import App
 import java.io.File
 import java.math.BigInteger

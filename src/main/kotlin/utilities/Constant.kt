@@ -12,4 +12,5 @@ object Constant {
         const val REQUIRED_ANDROID = 7
     }
     const val FILE_NAME = "google_play.csv"
+    const val DATE_FORAMT="MMM-dd-yyyy"
 }
