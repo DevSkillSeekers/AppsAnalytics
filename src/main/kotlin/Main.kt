@@ -3,8 +3,7 @@ import utilities.Constant
 
 fun main(args: Array<String>) {
     val apps = AppParser().parseFile(Constant.FILE_NAME)
+    val analyzer = Analyzer()
 
-    for(i in 0..10){
-        println(apps[i].updatedDate.toString())
-    }
+    println("What is the oldest app in the dataset.\n${analyzer.findOldestApp(apps).appName}")
 }
