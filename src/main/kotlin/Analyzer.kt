@@ -48,6 +48,17 @@ class Analyzer() {
         return null
     }
 
+    fun percentageAppsRunningOnAndroid9(apps: List<App>): String?{
+        if (apps.isEmpty()) return null
+        apps.forEach { it ->
+            if (it.requiresAndroid.contains("9 and up"))
+                return String.format("%.1f", 100.0 * apps.count {
+                    it.requiresAndroid == "9 and up"
+                } / apps.size)
+        }
+        return null
+    }
+
     private fun convertToNumber(size:String): Long {
         when {
             size.endsWith("k", true)->{

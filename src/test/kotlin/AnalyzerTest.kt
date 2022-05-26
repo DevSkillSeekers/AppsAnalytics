@@ -9,8 +9,7 @@ import utilities.convertStringToDate
 import java.text.SimpleDateFormat
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-internal class AnalyzerTest{
-
+internal class AnalyzerTest {
     private lateinit var analyzer: Analyzer
 
     @BeforeAll
@@ -27,7 +26,7 @@ internal class AnalyzerTest{
         val result = analyzer.topTenAppInstall(appList)
 
         //then should return null
-        kotlin.test.assertNull(result)
+        assertNull(result)
     }
 
     @Test
@@ -54,22 +53,23 @@ internal class AnalyzerTest{
         assertEquals(predictable, result)
     }
 
+
     @Test
-    fun should_ReturnNull_When_EmptyList(){
+    fun should_ReturnMinus1_When_EmptyList(){
         //Given emptyList
         val app = listOf<App>()
         //when search for the oldest app
         val result = Analyzer().findOldestApp(app)
         //then check the result
-        assertEquals(null,result)
+        assertEquals("-1",result)
     }
 
     @Test
     fun should_Return_oldestApp_whenHasValidList(){
         //Given emptyList
-        val apps = AppParser().parseFile(Constant.TEST_FILE_NAME)
+        val app = AppParser().parseFile(Constant.TEST_FILE_NAME)
         //when search for the oldest app
-        val result = Analyzer().findOldestApp(apps)
+        val result = Analyzer().findOldestApp(app)
         //then check the result
         assertEquals("The Kremer Collection VR Museum",result)
     }
@@ -83,6 +83,7 @@ internal class AnalyzerTest{
         //then check the result
         assertEquals(SimpleDateFormat(Constant.DATE_FORMAT).parse("MAY-15-2022"),result)
     }
+
 
     @Test
     fun should_Return_ConvertedDate_When_DayLessThen10(){
@@ -99,39 +100,9 @@ internal class AnalyzerTest{
         //Given date with different format
         val date = "5 5 2022"
         //when convert StringDate to date
-        val wrongFormatException: Executable =Executable{ convertStringToDate(date)}
+        val wrongFormatException:Executable =Executable{ convertStringToDate(date)}
         //then check the result
         assertThrows(Exception::class.java,wrongFormatException)
-    }
-
-    @Test
-    fun should_ReturnMinus1_When_EmptyList(){
-        //Given empty list of apps
-        val apps = listOf<App>()
-        //when calculate % of medical apps in emptyList
-        val result = Analyzer().getPercentageOfCategory(apps,"Medical")
-        //then check the result
-        assertEquals(-1.0,result)
-    }
-
-    @Test
-    fun should_ReturnMinus1_When_CategoryIsBlank(){
-        //Given empty list of apps
-        val apps = listOf<App>()
-        //when calculate % of medical apps in emptyList
-        val result = Analyzer().getPercentageOfCategory(apps,"")
-        //then check the result
-        assertEquals(-1.0,result)
-    }
-
-    @Test
-    fun should_ReturnPercentage_When_ValidList(){
-        //Given list of apps
-        val apps = AppParser().parseFile(Constant.TEST_FILE_NAME)
-        //when calculate % of medical apps in list
-        val result = Analyzer().getPercentageOfCategory(apps,"Medical")
-        //then check the result
-        assertEquals(30.0,result)
     }
 
 }
