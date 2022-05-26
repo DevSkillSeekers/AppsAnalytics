@@ -1,15 +1,15 @@
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.function.Executable
 import parser.AppParser
 import utilities.Constant
 import utilities.convertStringToDate
 import java.text.SimpleDateFormat
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class AnalyzerTest{
-
-
     private lateinit var analyzer: Analyzer
 
     @BeforeAll
@@ -105,4 +105,70 @@ internal class AnalyzerTest{
         assertThrows(Exception::class.java,wrongFormatException)
     }
 
+    @Test
+    fun should_ReturnNull_When_EmptyList() {
+        //given empty list
+        val appList = mutableListOf<App>()
+
+        // when searching for "9 and up"
+        val result = analyzer.percentageAppsRunningOnAndroid9(appList)
+
+        //then should return null
+        assertNull(result)
+    }
+
+    @Test
+    fun `should_ReturnZero_When_Don'tContains9`() {
+        // given list
+        val appList = App(
+            "Catholic Teachings",
+            "MissalDaily.com",
+            "Libraries & Demo",
+            convertStringToDate("November 7 2019"),
+            "11M",
+            1,
+            "3",
+            "4.4 and up"
+        )
+
+        // when searching for "9 and up"
+        val result = analyzer.percentageAppsRunningOnAndroid9(listOf(appList))
+
+        //then should return null
+        assertNull(result)
+    }
+
+    @Test
+    fun should_ReturnPercentage_When_Contains9() {
+        // given list
+        val appList = mutableListOf<App>()
+        appList.add(
+            App(
+                "Catholic Teachings",
+                "MissalDaily.com",
+                "Libraries & Demo",
+                convertStringToDate("November 7 2019"),
+                "11M",
+                1,
+                "3",
+                "4.4 and up"
+            )
+        )
+        appList.add(
+            App(
+                "Diamonds | Pets Rock", "TIMEFLIK (ex MR TIME)",
+                "Personalization",
+                convertStringToDate("August 18 2021"),
+                "4.7M",
+                10,
+                "1.0.0",
+                "9 and up"
+            )
+        )
+        // when searching for "9 and up"
+        val result = analyzer.percentageAppsRunningOnAndroid9(appList)
+
+        //then should return 50.0
+        assertEquals("50.0", result)
+    }
 }
