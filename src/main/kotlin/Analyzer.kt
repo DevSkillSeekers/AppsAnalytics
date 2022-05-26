@@ -20,18 +20,18 @@ class Analyzer() {
     }
 
     fun getPercentageOfCategory(apps: List<App>,categoryName:String):Double{
-        return apps.filter { it.category.contains(categoryName,true) }
+        return if (apps.isNotEmpty())
+         apps.filter { it.category.contains(categoryName,true) }
             .size.div(apps.size.toDouble()).times(100)
             .times(100).roundToInt().toDouble() / 100
+        else -1.0
     }
 
-
-    // move string "Varies with device" to constant file
     fun getLargestApp(apps: List<App>,size:Int):List<App>?{
         if (apps.isNotEmpty()) {
             val list = mutableMapOf<App,Long>()
 
-             apps.filterNot { it.size.contains("Varies with device", true) }
+             apps.filterNot { it.size.contains("Varies", true) }
                  .apply {
                     onEach {
                        list[it] = convertToNumber(it.size)
@@ -39,7 +39,6 @@ class Analyzer() {
                  }
             return list.toList().sortedByDescending { (_, value) -> value}.toMap().keys.toList().take(size)
         }
-
         return null
     }
 

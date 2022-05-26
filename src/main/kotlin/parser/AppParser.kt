@@ -4,7 +4,6 @@ import utilities.Constant
 import utilities.convertStringToDate
 import App
 import java.io.File
-import java.math.BigInteger
 
 class AppParser {
 
@@ -17,7 +16,7 @@ class AppParser {
                 }
             }
         }
-        return appList
+        return appList.distinctBy { Pair(it.appName, it.company) }
     }
 
     private fun addApp(s: String): App {
