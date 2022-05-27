@@ -14,10 +14,8 @@ class Analyzer() {
     private fun appInstallCount(appName: String, appDataList: List<App>) =
         appDataList.first { first -> first.appName == appName }.installs
 
-    fun findOldestApp(apps: List<App>): String? {
-        return if (apps.isNotEmpty()) {apps.sortedBy { it.updatedDate }[0].appName} else null
-
-    }
+    fun findOldestApp(apps: List<App>): String? =
+        if (apps.isNotEmpty()) {apps.sortedBy { it.updatedDate }[0].appName} else null
 
     fun percentageAppsRunningOnAndroid9(apps: List<App>): String?{
         if (apps.isEmpty()) return null
@@ -30,15 +28,14 @@ class Analyzer() {
         return null
     }
 
-    fun getPercentageOfCategory(apps: List<App>,categoryName:String):Double{
-        return if (apps.isNotEmpty())
+    fun getPercentageOfCategory(apps: List<App>,categoryName:String):Double =
+        if (apps.isNotEmpty())
          apps.filter { it.category.contains(categoryName,true) }
             .size.div(apps.size.toDouble()).times(100)
             .times(100).roundToInt().toDouble() / 100
         else -1.0
-    }
 
-    fun getLargestApp(apps: List<App>,size:Int):List<App>?{
+    fun getLargestApp(apps: List<App>,size:Int):List<String>?{
         if (apps.isNotEmpty()) {
             val list = mutableMapOf<App,Long>()
 
@@ -48,7 +45,8 @@ class Analyzer() {
                        list[it] = convertToNumber(it.size)
                     }
                  }
-            return list.toList().sortedByDescending { (_, value) -> value}.toMap().keys.toList().take(size)
+            return list.toList().sortedByDescending { (_, value) -> value}.toMap()
+                .keys.map { it-> it.appName }.toList().take(size)
         }
         return null
     }
