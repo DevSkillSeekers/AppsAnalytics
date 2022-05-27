@@ -65,4 +65,9 @@ class Analyzer() {
         }
         return 0
     }
+    fun findNumberOfAppsByCompanyName(apps: List<App>,companyName:String):Int{
+
+         return apps.filter { it.company.contains(companyName,true)}.size
+
+    }
 }
