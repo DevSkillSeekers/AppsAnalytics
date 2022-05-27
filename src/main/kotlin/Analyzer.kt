@@ -12,8 +12,8 @@ class Analyzer() {
                 .toList()
         else null
 
-    fun findOldestApp(apps: List<App>): String {
-        return if (apps.isNotEmpty()) {apps.sortedBy { it.updatedDate }[0].appName} else "-1"
+    fun findOldestApp(apps: List<App>): String? {
+        return if (apps.isNotEmpty()) {apps.sortedBy { it.updatedDate }[0].appName} else null
     }
 
     fun percentageAppsRunningOnAndroid9(apps: List<App>): String?{
