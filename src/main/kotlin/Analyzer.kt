@@ -1,20 +1,15 @@
 import kotlin.math.roundToInt
+
 class Analyzer() {
 
     fun topTenAppInstall(appDataList: List<App>): List<String>? =
         if (appDataList.isNotEmpty())
-            appDataList.groupBy { it.appName }.keys
-                .associateWith { appInstallCount(it, appDataList) }
-                .asSequence()
-                .sortedByDescending { (_, value) -> value }
-                .map { value -> value.key }
+            appDataList.asSequence()
+                .sortedByDescending { dataSorted -> dataSorted.installs }
+                .map { data -> data.appName }
+                .toSet()
                 .take(10)
-                .toList()
         else null
-
-    private fun appInstallCount(appName: String, appDataList: List<App>) =
-        appDataList.first { first -> first.appName == appName }.installs
-
 
     fun findOldestApp(apps: List<App>): String {
         return if (apps.isNotEmpty()) {apps.sortedBy { it.updatedDate }[0].appName} else "-1"
