@@ -1,15 +1,8 @@
 import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
-import org.junit.jupiter.api.function.Executable
-import parser.AppParser
-import utilities.Constant
-import utilities.convertStringToDate
-import java.text.SimpleDateFormat
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class AnalyzerTest{
+
 
     private lateinit var analyzer: Analyzer
 
@@ -54,6 +47,7 @@ internal class AnalyzerTest{
         assertEquals(predictable, result)
     }
 
+
     @Test
     fun should_ReturnNull_When_EmptyList(){
         //Given emptyList
@@ -83,6 +77,7 @@ internal class AnalyzerTest{
         //then check the result
         assertEquals(SimpleDateFormat(Constant.DATE_FORMAT).parse("MAY-15-2022"),result)
     }
+
 
     @Test
     fun should_Return_ConvertedDate_When_DayLessThen10(){
