@@ -11,9 +11,6 @@ class Analyzer() {
                 .take(10)
         else null
 
-    private fun appInstallCount(appName: String, appDataList: List<App>) =
-        appDataList.first { first -> first.appName == appName }.installs
-
     fun findOldestApp(apps: List<App>): String? =
         if (apps.isNotEmpty()) {apps.sortedBy { it.updatedDate }[0].appName} else null
 
@@ -28,12 +25,24 @@ class Analyzer() {
         return null
     }
 
+    fun getPercentageAppsRunningOnSpecificVersion(apps: List<App>, version:String): Double =
+        if (apps.isNotEmpty())
+            calculatePercentage(
+                apps.filter { it.requiresAndroid.contains(version,true)}.size,
+                apps.size)
+        else -1.0
+
     fun getPercentageOfCategory(apps: List<App>,categoryName:String):Double =
         if (apps.isNotEmpty())
-         apps.filter { it.category.contains(categoryName,true) }
-            .size.div(apps.size.toDouble()).times(100)
-            .times(100).roundToInt().toDouble() / 100
+            calculatePercentage(
+                apps.filter { it.category.contains(categoryName, true) }.size,
+                apps.size)
         else -1.0
+
+    private fun calculatePercentage(dividend:Int, divisor:Int):Double =
+        if (dividend!=0){
+            String.format("%.1f", 100.0 * dividend.div(divisor.toDouble())).toDouble()
+        } else -1.0
 
     fun getLargestApp(apps: List<App>,size:Int):List<String>?{
         if (apps.isNotEmpty()) {

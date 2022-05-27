@@ -9,13 +9,13 @@ fun main(args: Array<String>) {
 
     println("--------------------------------------------")
     println("2# What is the percentage of Medical apps?" +
-            "\n${analyzer.getPercentageOfCategory(apps,"Medical")}")
+            "\n%${analyzer.getPercentageOfCategory(apps,"Medical")}")
     println("--------------------------------------------")
     println("3# What is the oldest app in the dataset." +
             "\n${analyzer.findOldestApp(apps)}")
     println("--------------------------------------------")
     println("4# What is the percentage of apps running on android 9 and up only?"+
-            "\n${analyzer.percentageAppsRunningOnAndroid9(apps)}")
+            "\n%${analyzer.getPercentageAppsRunningOnSpecificVersion(apps,"9 and up")}")
     println("--------------------------------------------")
     println("5# What are the largest 10 apps in the dataset?\n" +
             "${analyzer.getLargestApp(apps,10)}")
