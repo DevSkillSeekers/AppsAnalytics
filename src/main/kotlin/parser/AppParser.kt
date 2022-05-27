@@ -15,7 +15,7 @@ class AppParser {
                 }
             }
         }
-        return appList
+        return appList.distinctBy { Pair(it.appName, it.company) }
     }
 
     private fun addApp(s: String): App {
