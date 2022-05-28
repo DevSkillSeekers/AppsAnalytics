@@ -65,9 +65,16 @@ class Analyzer() {
         }
         return 0
     }
+/**
+ * @param apps is a list of app class
+ * @param companyName is string
+ * @return number of apps with given companyName.
+ * */
     fun findNumberOfAppsByCompanyName(apps: List<App>,companyName:String):Int{
-
-         return apps.filter { it.company.contains(companyName,true)}.size
+        return if (apps.isNotEmpty()&& companyName.isNotEmpty())
+         apps.filter { it.company.contains(companyName.trim(),true)}.size
+        else
+            -1
 
     }
 }
