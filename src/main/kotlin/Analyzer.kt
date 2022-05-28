@@ -46,7 +46,7 @@ class Analyzer {
 
 
     fun getLargestApp(apps: List<App>,size:Int):List<String>?{
-        if (apps.isNotEmpty()) {
+        if (apps.isNotEmpty() && size <= apps.size ) {
             val list = mutableMapOf<App,BigDecimal>()
 
             apps.filterNot { it.size.contains("Varies", true) }
@@ -57,10 +57,8 @@ class Analyzer {
                             list[it] = value
                     }
                 }
-
-            println("test ignor")
             return list.toList().sortedByDescending { (_, value) -> value}.toMap()
-                .keys.map { it-> it.appName+" "+it.size }.toList().take(size)
+                .keys.map { it-> it.appName }.toList().take(size)
         }
         return null
     }

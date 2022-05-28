@@ -18,7 +18,6 @@ object Constant {
 }
 
 object TestConstant{
-    const val EMPTY_LIST = 0
-    const val VALID_LIST = 1
+    const val CHANGE_SIZE_UPPER_LOWER_CASE = 1
 
 }

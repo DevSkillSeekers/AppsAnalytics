@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
+import utilities.TestConstant
 import utilities.calculatePercentage
 import java.util.*
 
@@ -23,16 +24,26 @@ internal class AnalyzerTest {
         apps=  mutableListOf()
     }
 
-    private fun setList():MutableList<App>{
+    private fun setList(testSet:Int =0):MutableList<App>{
         val  appList=  mutableListOf<App>()
-        appList.add(App("Books", "Amazon", "Libraries & Demo", Date("5/1/2000"), "21M", 500, "1.0.0", 4.4))
-        appList.add( App("AD", "Amazon", "Libraries & Demo", Date("1/1/2020"), "21M", 500, "1.0.0", 9.0))
-        appList.add(App("Google Photo", "Google", "Libraries & Demo", Date("2/1/2000"), "21M", 500, "1.0.0", 6.0))
-        appList.add(App("Google Files", "Google", "Medical", Date("1/1/2019"), "21M", 500, "1.0.0", 9.0))
+       when(testSet){
+           TestConstant.CHANGE_SIZE_UPPER_LOWER_CASE ->{
+               appList.add(App("Books", "Amazon", "Libraries & Demo", Date("5/1/2000"), "21M", 500000, "1.0.0", 4.4))
+               appList.add( App("AD", "Amazon", "Libraries & Demo", Date("1/1/2020"), "30k", 30, "1.0.0", 9.0))
+               appList.add(App("Google Photo", "Google", "Libraries & Demo", Date("2/1/2000"), "5.5g", 500, "1.0.0", 6.0))
+               appList.add(App("Google Files", "Google", "Medical", Date("1/1/2019"), "5g", 1000000, "1.0.0", 9.0))
+           }
+           else ->{
+               appList.add(App("Books", "Amazon", "Libraries & Demo", Date("5/1/2000"), "21M", 500000, "1.0.0", 4.4))
+               appList.add(App("AD", "Amazon", "Libraries & Demo", Date("1/1/2020"), "30M", 30, "1.0.0", 9.0))
+               appList.add(App("Google Photo", "Google", "Libraries & Demo", Date("2/1/2000"), "50M", 500, "1.0.0", 6.0))
+               appList.add(App("Google Files", "Google", "Medical", Date("1/1/2019"), "5M", 1000000, "1.0.0", 9.0))
+           }
+       }
         return appList
     }
 
-    @Test
+    @Test //Test Point #1
     fun should_ReturnNumberOfAppsDevelopedByACompany_When_CompanyNameEqualsToGoogle(){
         //Given list of apps
         apps = setList()
@@ -40,10 +51,9 @@ internal class AnalyzerTest {
         val result = analyzer.findNumberOfAppsByCompanyName(apps,"google")
         //then check the result
         assertEquals(2, result)
-
     }
 
-    @Test
+    @Test //Test Point #1
     fun should_ReturnNumberOfAppsDevelopedByACompany_When_CompanyNameContainsSpaceAtTheEnd(){
         //Given list of apps
         apps = setList()
@@ -51,19 +61,19 @@ internal class AnalyzerTest {
         val result = analyzer.findNumberOfAppsByCompanyName(apps,"google ")
         //then check the result
         assertEquals(2, result)
-
     }
-    @Test
+
+    @Test //Test Point #1
     fun should_ReturnNumberOfAppsDevelopedByACompany_When_CompanyNameContainsSpace(){
         //Given list of apps
-        apps
+        apps = setList()
         ////when calculate number of apps that developed by companyName contains space
         val result = analyzer.findNumberOfAppsByCompanyName(apps,"goo gle")
         //then check the result
         assertEquals(0, result)
-
     }
-    @Test
+
+    @Test //Test Point #1
     fun should_ReturnZero_When_CompanyNameNotFound(){
         //Given list of apps
         apps = setList()
@@ -71,9 +81,9 @@ internal class AnalyzerTest {
         val result = analyzer.findNumberOfAppsByCompanyName(apps,"sfkjnc")
         //then check the result
         assertEquals(0, result)
-
     }
-    @Test
+
+    @Test //Test Point #1
     fun should_ReturnMinus1_When_CompanyNameEmpty(){
         //Given list of apps
         apps = setList()
@@ -83,7 +93,8 @@ internal class AnalyzerTest {
         assertEquals(-1, result)
 
     }
-    @Test
+
+    @Test //Test Point #1
     fun should_ReturnNumberOfAppsDevelopedByACompany_When_CompanyNameInUpperCase(){
         //Given list of apps
         apps = setList()
@@ -93,10 +104,11 @@ internal class AnalyzerTest {
         assertEquals(2, result)
 
     }
-    @Test
+
+    @Test //Test Point #1
     fun should_ReturnMinus1_When_ListEmpty(){
         //Given empty list of apps
-        app
+        apps
         //when calculate number of apps that developed by companyName
         val result = analyzer.findNumberOfAppsByCompanyName(apps,"google")
         //then check the result
@@ -157,9 +169,8 @@ internal class AnalyzerTest {
         assertEquals(0.0, result)
     }
 
-
     @Test // Test Point #2
-    fun should_ReturnMinus1_When_CategoryIsBlank() {
+    fun should_ReturnMinus1_When_CategoryIsEmpty() {
         //Given valid list of apps and empty category
         apps = setList()
         //when calculate % empty category name
@@ -210,6 +221,85 @@ internal class AnalyzerTest {
         assertEquals(25.0,result)
     }
 
+    @Test // Test point #4
+    fun should_ReturnMinus1_When_CalculateRunningOnSpecificVersion_WithEmptyAppList() {
+        //Given emptyList of apps and valid version
+        apps
+        val version = 9.0
+        //when calculate percentage of empty list
+        val result = analyzer.getPercentageAppsRunningOnSpecificVersion(apps ,version)
+        //then check the result
+        assertEquals(-1.0,result)
+    }
+
+    @Test // Test point #3
+    fun should_Return_PercentageAppsRunningOnSpecificVersion_when_HasValidList() {
+        //Given valid list of apps and valid version
+        apps = setList()
+        val version = 9.0
+        //when search for the oldest app
+        val result = analyzer.getPercentageAppsRunningOnSpecificVersion(apps,version)
+        //then check the result
+        assertEquals(50.0, result)
+    }
+
+    @Test // Test point #3
+    fun should_ReturnZero_when_NoAppRunningOnSpecificVersion() {
+        //Given valid list of apps and valid version
+        apps = setList()
+        val version = 10.0
+        //when search for the oldest app
+        val result = analyzer.getPercentageAppsRunningOnSpecificVersion(apps,version)
+        //then check the result
+        assertEquals(0.0, result)
+    }
+
+    @Test// Test point #5
+    fun should_Return_TopLargestApps() {
+        //given valid list and valid size
+        apps = setList()
+        val valueReturnNumber = 4
+        //when search for top 4 largest app
+        val functionResultValue = analyzer.getLargestApp(apps,valueReturnNumber)
+        //then should return that order of top 4 largest app that compares the size with unit KB
+        val expectedResultValue = listOf("Google Photo", "AD","Books", "Google Files")
+        assertEquals(expectedResultValue, functionResultValue)
+    }
+
+    @Test// Test point #5
+    fun should_ReturnNull_TopLargestApps_When_ListEmpty() {
+        //given empty list
+        apps
+        val valueReturnNumber= 4
+        //when search for top 4 largest app
+        val functionResultValue = analyzer.getLargestApp(apps,valueReturnNumber)
+        //then should return -1
+        assertNull(functionResultValue)
+    }
+
+    @Test// Test point #5
+    fun should_ReturnNull_TopLargestApps_When_RankIsBiggerThanSize() {
+        //given valid list and wrong rank that is bigger than size list
+        apps = setList()
+        val valueReturnNumber= 5
+        //when search for top 10 largest app
+        val functionResultValue = analyzer.getLargestApp(apps,valueReturnNumber)
+        //then should return -1
+        assertNull(functionResultValue)
+    }
+
+    @Test// Test point #5
+    fun should_Return_TopLargestApps_When_Size_LoweUpperCases() {
+        //given valid list with Capital/Small size Units
+        apps = setList(TestConstant.CHANGE_SIZE_UPPER_LOWER_CASE)
+        val valueReturnNumber= 2
+        //when search for top 2 largest app
+        val functionResultValue = analyzer.getLargestApp(apps,valueReturnNumber)
+        //then should return
+        val expectedResultValue = listOf("Google Photo","Google Files")
+        assertEquals(expectedResultValue,functionResultValue)
+    }
+
     @Test// Test point #6
     fun should_ReturnNull_When_TheListIsEmpty() {
         //Given empty list
@@ -253,4 +343,5 @@ internal class AnalyzerTest {
         //then should return Null
         assertNull(result)
     }
+
 }
