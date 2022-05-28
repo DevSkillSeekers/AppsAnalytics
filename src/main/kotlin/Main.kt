@@ -22,5 +22,5 @@ fun main() {
             "${analyzer.getLargestApp(apps,10)}")
     println("--------------------------------------------")
     println("6# What are the top 10 installed apps.\n" +
-            "${analyzer.topTenAppInstall(apps)}")
+            "${analyzer.topTenAppInstall(apps, 10)}")
 }
