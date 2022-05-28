@@ -2,7 +2,8 @@ import parser.AppParser
 import utilities.Constant
 
 fun main() {
-    val apps = AppParser().parseFile(Constant.FILE_NAME)
+
+    val apps = AppParser(Constant.FILE_NAME).parseFile()
     val analyzer = Analyzer()
 
     println("1# How many apps were developed by Google in the dataset? ")

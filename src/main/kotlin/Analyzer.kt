@@ -1,5 +1,6 @@
 import utilities.calculatePercentage
-import utilities.convertToNumber
+import utilities.convertToByte
+import java.math.BigDecimal
 
 class Analyzer {
 
@@ -34,16 +35,19 @@ class Analyzer {
 
     fun getLargestApp(apps: List<App>,size:Int):List<String>?{
         if (apps.isNotEmpty()) {
-            val list = mutableMapOf<App,Long>()
+            val list = mutableMapOf<App,BigDecimal>()
 
              apps.filterNot { it.size.contains("Varies", true) }
                  .apply {
                     onEach {
-                       list[it] = convertToNumber(it.size)
+                        val value = convertToByte(it.size)
+                        if(value!=null)
+                            list[it] = value
                     }
                  }
+
             return list.toList().sortedByDescending { (_, value) -> value}.toMap()
-                .keys.map { it-> it.appName }.toList().take(size)
+                .keys.map { it-> it.appName+" "+it.size }.toList().take(size)
         }
         return null
     }

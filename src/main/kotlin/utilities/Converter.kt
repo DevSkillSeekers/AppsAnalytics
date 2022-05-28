@@ -1,4 +1,6 @@
 package utilities
+import java.math.BigDecimal
+import java.math.BigInteger
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -17,17 +19,24 @@ fun calculatePercentage(dividend:Int, divisor:Int):Double =
 
 fun convertToDouble(version:String):Double? = version.split(" ").first().toDoubleOrNull()
 
-fun convertToNumber(size:String): Long {
-    when {
-        size.endsWith("k", true)->{
-            return size.substring(0,size.indexOf("k")).toLong()
-        }
-        size.endsWith("M", true)->{
-            return (size.substring(0,size.indexOf("M")).toDouble()* 1000).toLong()
-        }
-        size.endsWith("G", true)->{
-            return (size.substring(0,size.indexOf("G")).toDouble()* 1000000).toLong()
+
+fun convertToByte(size:String): BigDecimal?{
+    var result = ""
+    for (c in size){
+        result += if (c.isDigit())
+            c
+        else if ( c == '.' && !result.contains("."))
+            c
+        else break
+    }
+    val value = result.toDoubleOrNull()
+
+    if (value!= null) {
+      return when(size[size.lastIndex]) {
+            'K','k' ->  (value*1024).toBigDecimal()
+            'M','m' -> (value*1024*1024).toBigDecimal()
+            else -> (value*1024*1024*1024).toBigDecimal()
         }
     }
-    return 0
+    return null
 }

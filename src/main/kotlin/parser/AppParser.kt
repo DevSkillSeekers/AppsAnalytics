@@ -6,12 +6,12 @@ import App
 import utilities.convertToDouble
 import java.io.File
 
-class AppParser {
+class AppParser (private val fileName: String){
+
     /**
-     * @param fileName is string represent fileName for DataSet
      * @return list of all app inside DataSet without repetition
      * */
-    fun parseFile(fileName: String): List<App> {
+    fun parseFile(): List<App> {
         val appList = mutableListOf<App>()
         File(fileName).apply {
             if (this.exists()) {
@@ -35,7 +35,7 @@ class AppParser {
             category = mList[Constant.ColumnIndex.CATEGORY],
             updatedDate = convertStringToDate(mList[Constant.ColumnIndex.UPDATE_DATE]),
             size = mList[Constant.ColumnIndex.SIZE],
-            installs = (mList[Constant.ColumnIndex.INSTALLS]).toLong(),
+            installs = mList[Constant.ColumnIndex.INSTALLS].toLong(),
             currentVersion = mList[Constant.ColumnIndex.CURRENT_VERSION],
             requiresAndroid = convertToDouble(mList[Constant.ColumnIndex.REQUIRED_ANDROID])
         )
