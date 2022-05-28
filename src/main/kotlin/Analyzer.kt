@@ -1,3 +1,4 @@
+import utilities.Constant
 import kotlin.math.roundToInt
 
 class Analyzer() {
@@ -75,13 +76,13 @@ class Analyzer() {
     private fun calculateSize(stringText: String): Double =
         when (stringText.last()) {
             'G' -> {
-                stringText.removeSuffix(stringText.last().toString()).toDouble() * (1024 * 1024 * 1024)
+                stringText.removeSuffix(stringText.last().toString()).toDouble() * Constant.KILOBYTE_SIZE.times(3)
             }
             'M' -> {
-                stringText.removeSuffix(stringText.last().toString()).toDouble() * (1024 * 1024)
+                stringText.removeSuffix(stringText.last().toString()).toDouble() * Constant.KILOBYTE_SIZE.times(3)
             }
             else -> {
-                stringText.removeSuffix(stringText.last().toString()).toDouble() * (1024)
+                stringText.removeSuffix(stringText.last().toString()).toDouble() * Constant.KILOBYTE_SIZE.times(3)
             }
         }
 
