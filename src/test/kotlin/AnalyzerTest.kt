@@ -77,8 +77,19 @@ internal class AnalyzerTest {
     fun should_ReturnNumberOfAppsDevelopedByACompany_When_CompanyNameEqualsToGoogle(){
         //Given list of apps
         initializeAppList(1)
-        //when calculate % of medical apps in list
+        ////when calculate number of apps that developed by companyName
         val result = analyzer.findNumberOfAppsByCompanyName(apps,"google")
+        //then check the result
+        assertEquals(2, result)
+
+    }
+
+    @Test
+    fun should_ReturnNumberOfAppsDevelopedByACompany_When_CompanyNameContainsSpaceAtTheEnd(){
+        //Given list of apps
+        initializeAppList(1)
+        ////when calculate number of apps that developed by companyName contains space at the end
+        val result = analyzer.findNumberOfAppsByCompanyName(apps,"google ")
         //then check the result
         assertEquals(2, result)
 
@@ -87,18 +98,17 @@ internal class AnalyzerTest {
     fun should_ReturnNumberOfAppsDevelopedByACompany_When_CompanyNameContainsSpace(){
         //Given list of apps
         initializeAppList(1)
-        //when calculate % of medical apps in list
-        val result = analyzer.findNumberOfAppsByCompanyName(apps,"google ")
+        ////when calculate number of apps that developed by companyName contains space
+        val result = analyzer.findNumberOfAppsByCompanyName(apps,"goo gle")
         //then check the result
-        assertEquals(2, result)
+        assertEquals(0, result)
 
     }
-
     @Test
     fun should_Retur0_When_CompanyNameNotFound(){
         //Given list of apps
         initializeAppList(1)
-        //when calculate % of medical apps in list
+        ////when calculate number of apps that developed by companyName doesn't exist
         val result = analyzer.findNumberOfAppsByCompanyName(apps,"sfkjnc")
         //then check the result
         assertEquals(0, result)
@@ -108,7 +118,7 @@ internal class AnalyzerTest {
     fun should_ReturnMinus1_When_CompanyNameEmpty(){
         //Given list of apps
         initializeAppList(1)
-        //when calculate % of medical apps in list
+        //when calculate number of apps that developed by companyName is empty
         val result = analyzer.findNumberOfAppsByCompanyName(apps,"")
         //then check the result
         assertEquals(-1, result)
@@ -118,7 +128,7 @@ internal class AnalyzerTest {
     fun should_ReturnNumberOfAppsDevelopedByACompany_When_CompanyNameInUpperCase(){
         //Given list of apps
         initializeAppList(1)
-        //when calculate % of medical apps in list
+        //when calculate number of apps that developed by companyName in upper case
         val result = analyzer.findNumberOfAppsByCompanyName(apps,"GOOGLE")
         //then check the result
         assertEquals(2, result)
@@ -126,10 +136,10 @@ internal class AnalyzerTest {
     }
     @Test
     fun should_ReturnMinus1_When_ListEmpty(){
-        //Given list of apps
+        //Given empty list of apps
         initializeAppList(0)
-        //when calculate % of medical apps in list
-        val result = analyzer.findNumberOfAppsByCompanyName(apps,"GOOGLE")
+        //when calculate number of apps that developed by companyName
+        val result = analyzer.findNumberOfAppsByCompanyName(apps,"google")
         //then check the result
         assertEquals(-1, result)
 
