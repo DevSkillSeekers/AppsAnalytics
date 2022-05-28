@@ -46,6 +46,7 @@ class Analyzer {
                     }
                  }
 
+            println("test ignor")
             return list.toList().sortedByDescending { (_, value) -> value}.toMap()
                 .keys.map { it-> it.appName+" "+it.size }.toList().take(size)
         }
