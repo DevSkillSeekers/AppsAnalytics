@@ -3,21 +3,30 @@ package parser
 import utilities.Constant
 import utilities.convertStringToDate
 import App
+import utilities.convertToDouble
 import java.io.File
 
 class AppParser {
+    /**
+     * @param fileName is string represent fileName for DataSet
+     * @return list of all app inside DataSet without repetition
+     * */
     fun parseFile(fileName: String): List<App> {
         val appList = mutableListOf<App>()
-        File(fileName).apply { ->
+        File(fileName).apply {
             if (this.exists()) {
                 this.forEachLine { line ->
                     appList.add(addApp(line))
                 }
             }
         }
-        return appList.distinctBy { Pair(it.appName, it.company) }
+        return appList.distinctBy { Pair(it.appName, it.company)}
     }
 
+    /**
+     * @param s is line of dataSet
+     * @return object of app
+     * */
     private fun addApp(s: String): App {
         val mList = s.split(",")
         return App(
@@ -28,7 +37,7 @@ class AppParser {
             size = mList[Constant.ColumnIndex.SIZE],
             installs = (mList[Constant.ColumnIndex.INSTALLS]).toLong(),
             currentVersion = mList[Constant.ColumnIndex.CURRENT_VERSION],
-            requiresAndroid = mList[Constant.ColumnIndex.REQUIRED_ANDROID]
+            requiresAndroid = convertToDouble(mList[Constant.ColumnIndex.REQUIRED_ANDROID])
         )
     }
 }

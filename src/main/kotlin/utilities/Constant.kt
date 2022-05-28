@@ -13,6 +13,11 @@ object Constant {
     }
 
     const val FILE_NAME = "google_play.csv"
-    const val TEST_FILE_NAME = "google_play_test.csv"
     const val DATE_FORMAT = "MMM-dd-yyyy"
+}
+
+object TestConstant{
+    const val EMPTY_LIST = 0
+    const val VALID_LIST = 1
+
 }
