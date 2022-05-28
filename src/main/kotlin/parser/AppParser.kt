@@ -3,6 +3,7 @@ package parser
 import utilities.Constant
 import utilities.convertStringToDate
 import App
+import utilities.convertToDouble
 import java.io.File
 
 class AppParser {
@@ -28,7 +29,7 @@ class AppParser {
             size = mList[Constant.ColumnIndex.SIZE],
             installs = (mList[Constant.ColumnIndex.INSTALLS]).toLong(),
             currentVersion = mList[Constant.ColumnIndex.CURRENT_VERSION],
-            requiresAndroid = mList[Constant.ColumnIndex.REQUIRED_ANDROID]
+            requiresAndroid = convertToDouble(mList[Constant.ColumnIndex.REQUIRED_ANDROID])
         )
     }
 }

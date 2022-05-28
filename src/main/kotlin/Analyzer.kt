@@ -1,4 +1,6 @@
+import utilities.calculatePercentage
 import kotlin.math.roundToInt
+
 class Analyzer() {
 
     fun topTenAppInstall(appDataList: List<App>): List<String>? =
@@ -17,22 +19,26 @@ class Analyzer() {
 
 
     fun findOldestApp(apps: List<App>): String {
-        return if (apps.isNotEmpty()) {apps.sortedBy { it.updatedDate }[0].appName} else "-1"
+        return if (apps.isNotEmpty()) {
+            apps.sortedBy { it.updatedDate }[0].appName
+        } else "-1"
     }
 
-    fun percentageAppsRunningOnAndroid9(apps: List<App>): String?{
-        if (apps.isEmpty()) return null
-        apps.forEach { it ->
-            if (it.requiresAndroid.contains("9 and up"))
-            return String.format("%.1f", 100.0 * apps.count {
-                it.requiresAndroid == "9 and up"
-            } / apps.size)
-        }
-        return null
+    /**
+     * @param version means android version.
+     * @return the Percentage apps running on a specific version.
+     */
+    fun getPercentageAppsRunningOnSpecificVersion(apps: List<App>, version: Double): String? {
+        return if (apps.isNotEmpty())
+            calculatePercentage(
+                apps.filter { it.requiresAndroid.toString().contains(version.toString(), true) }.size,
+                apps.size
+            )
+        else null
     }
 
-    fun getPercentageOfCategory(apps: List<App>,categoryName:String):Double{
-        return apps.filter { it.category.contains(categoryName,true) }
+    fun getPercentageOfCategory(apps: List<App>, categoryName: String): Double {
+        return apps.filter { it.category.contains(categoryName, true) }
             .size.div(apps.size.toDouble()).times(100)
             .times(100).roundToInt().toDouble() / 100
     }
