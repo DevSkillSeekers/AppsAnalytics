@@ -6,7 +6,8 @@ fun main() {
     val apps = AppParser(Constant.FILE_NAME).parseFile()
     val analyzer = Analyzer()
 
-    println("1# How many apps were developed by Google in the dataset? ")
+    println("1# How many apps were developed by Google in the dataset? "+
+            "\n${analyzer.findNumberOfAppsByCompanyName(apps,"Google")}")
 
     println("--------------------------------------------")
     println("2# What is the percentage of Medical apps?" +
@@ -23,4 +24,5 @@ fun main() {
     println("--------------------------------------------")
     println("6# What are the top 10 installed apps.\n" +
             "${analyzer.topTenAppInstall(apps)}")
+
 }

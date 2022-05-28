@@ -5,6 +5,18 @@ import java.math.BigDecimal
 class Analyzer {
 
     /**
+     * @param apps is a list of app class
+     * @param companyName is string
+     * @return number of apps with given companyName.
+     * */
+    fun findNumberOfAppsByCompanyName(apps: List<App>,companyName:String):Int {
+        return if (apps.isNotEmpty() && companyName.isNotEmpty())
+            apps.filter { it.company.contains(companyName.trim(), true) }.size
+        else
+            -1
+    }
+
+    /**
      * @param apps is a list of App class
      * @return the oldest app in given list.
      * */
@@ -37,14 +49,14 @@ class Analyzer {
         if (apps.isNotEmpty()) {
             val list = mutableMapOf<App,BigDecimal>()
 
-             apps.filterNot { it.size.contains("Varies", true) }
-                 .apply {
+            apps.filterNot { it.size.contains("Varies", true) }
+                .apply {
                     onEach {
                         val value = convertToByte(it.size)
                         if(value!=null)
                             list[it] = value
                     }
-                 }
+                }
 
             println("test ignor")
             return list.toList().sortedByDescending { (_, value) -> value}.toMap()

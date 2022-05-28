@@ -31,6 +31,78 @@ internal class AnalyzerTest {
         return appList
     }
 
+    @Test
+    fun should_ReturnNumberOfAppsDevelopedByACompany_When_CompanyNameEqualsToGoogle(){
+        //Given list of apps
+        apps = setList()
+        ////when calculate number of apps that developed by companyName
+        val result = analyzer.findNumberOfAppsByCompanyName(apps,"google")
+        //then check the result
+        assertEquals(2, result)
+
+    }
+
+    @Test
+    fun should_ReturnNumberOfAppsDevelopedByACompany_When_CompanyNameContainsSpaceAtTheEnd(){
+        //Given list of apps
+        apps = setList()
+        ////when calculate number of apps that developed by companyName contains space at the end
+        val result = analyzer.findNumberOfAppsByCompanyName(apps,"google ")
+        //then check the result
+        assertEquals(2, result)
+
+    }
+    @Test
+    fun should_ReturnNumberOfAppsDevelopedByACompany_When_CompanyNameContainsSpace(){
+        //Given list of apps
+        apps
+        ////when calculate number of apps that developed by companyName contains space
+        val result = analyzer.findNumberOfAppsByCompanyName(apps,"goo gle")
+        //then check the result
+        assertEquals(0, result)
+
+    }
+    @Test
+    fun should_ReturnZero_When_CompanyNameNotFound(){
+        //Given list of apps
+        apps = setList()
+        ////when calculate number of apps that developed by companyName doesn't exist
+        val result = analyzer.findNumberOfAppsByCompanyName(apps,"sfkjnc")
+        //then check the result
+        assertEquals(0, result)
+
+    }
+    @Test
+    fun should_ReturnMinus1_When_CompanyNameEmpty(){
+        //Given list of apps
+        apps = setList()
+        //when calculate number of apps that developed by companyName is empty
+        val result = analyzer.findNumberOfAppsByCompanyName(apps,"")
+        //then check the result
+        assertEquals(-1, result)
+
+    }
+    @Test
+    fun should_ReturnNumberOfAppsDevelopedByACompany_When_CompanyNameInUpperCase(){
+        //Given list of apps
+        apps = setList()
+        //when calculate number of apps that developed by companyName in upper case
+        val result = analyzer.findNumberOfAppsByCompanyName(apps,"GOOGLE")
+        //then check the result
+        assertEquals(2, result)
+
+    }
+    @Test
+    fun should_ReturnMinus1_When_ListEmpty(){
+        //Given empty list of apps
+        app
+        //when calculate number of apps that developed by companyName
+        val result = analyzer.findNumberOfAppsByCompanyName(apps,"google")
+        //then check the result
+        assertEquals(-1, result)
+
+    }
+
     @Test // Test Point #2
     fun should_ReturnPercentage_When_ValidList() {
         //Given valid list of apps and valid categoryName
