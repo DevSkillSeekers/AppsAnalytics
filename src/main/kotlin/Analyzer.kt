@@ -79,10 +79,10 @@ class Analyzer() {
                 stringText.removeSuffix(stringText.last().toString()).toDouble() * Constant.KILOBYTE_SIZE.times(3)
             }
             'M' -> {
-                stringText.removeSuffix(stringText.last().toString()).toDouble() * Constant.KILOBYTE_SIZE.times(3)
+                stringText.removeSuffix(stringText.last().toString()).toDouble() * Constant.KILOBYTE_SIZE.times(2)
             }
             else -> {
-                stringText.removeSuffix(stringText.last().toString()).toDouble() * Constant.KILOBYTE_SIZE.times(3)
+                stringText.removeSuffix(stringText.last().toString()).toDouble() * Constant.KILOBYTE_SIZE.times(1)
             }
         }
 
