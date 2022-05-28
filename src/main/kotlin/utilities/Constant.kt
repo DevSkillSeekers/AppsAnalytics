@@ -1,7 +1,7 @@
 package utilities
 
 object Constant {
-    object ColumIndex{
+    object ColumnIndex {
         const val APP_NAME = 0
         const val COMPANY = 1
         const val CATEGORY = 2
@@ -11,9 +11,8 @@ object Constant {
         const val CURRENT_VERSION = 6
         const val REQUIRED_ANDROID = 7
     }
+
     const val FILE_NAME = "google_play.csv"
     const val TEST_FILE_NAME = "google_play_test.csv"
-    const val DATE_FORMAT="MMM-dd-yyyy"
-    const val KILOBYTE_SIZE = 1024
-
+    const val DATE_FORMAT = "MMM-dd-yyyy"
 }
