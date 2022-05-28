@@ -39,7 +39,7 @@ internal class AnalyzerTest {
                         "Amazon",
                         "Libraries & Demo",
                         Date("1/1/2020"),
-                        "21M",
+                        "30M",
                         500,
                         "1.0.0",
                         "9.0"
@@ -51,7 +51,7 @@ internal class AnalyzerTest {
                         "Google",
                         "Libraries & Demo",
                         Date("2/1/2000"),
-                        "21M",
+                        "50M",
                         500,
                         "1.0.0",
                         "6.0"
@@ -63,7 +63,7 @@ internal class AnalyzerTest {
                         "Google",
                         "Medical",
                         Date("1/1/2019"),
-                        "21M", 500,
+                        "5M", 500,
                         "1.0.0",
                         "9.0"
                     )
@@ -144,7 +144,18 @@ internal class AnalyzerTest {
         assertEquals(-1, result)
 
     }
+    @Test
+    fun should_Return_Top10LargestApp() {
+        //given list with data of the file & the number of value will return
+        initializeAppList(1)
+        var valueReturnNumber= 4
+        //when search for top 10 largest app
+        val functionResultValue = analyzer.getLargestApp(apps,valueReturnNumber)
+        //then should return that order of top 10 largest app that compares the size with unit KB
+        val expectedResultValue = listOf("Google Photo", "AD","Books", "Google Files")
+        assertEquals(expectedResultValue, functionResultValue)
+    }
+
 
 
 }
-
