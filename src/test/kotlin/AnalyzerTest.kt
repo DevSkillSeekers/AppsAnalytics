@@ -1,4 +1,5 @@
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -139,11 +140,45 @@ internal class AnalyzerTest {
 
     @Test// Test point #6
     fun should_ReturnNull_When_TheListIsEmpty() {
-        //given empty list
+        //Given empty list
         apps
         //when search for find top ten app Install
-        val result = analyzer.topTenAppInstall(apps)
+        val result = analyzer.topTenAppInstall(apps = apps, size = 10)
         //then should return null
-        kotlin.test.assertNull(result)
+        assertNull(result)
+    }
+
+    @Test// Test point #6
+    fun should_ReturnTopAppInstall_WhenHasValidData() {
+        //Given list have Valid data
+        apps = setList()
+        //when search for top 3 app install
+        val result = analyzer.topTenAppInstall(apps = apps, size = 2)
+        //then should return that order of top 10 install app
+        val predictable = listOf(
+            "Google Files",
+            "Books",
+        )
+        assertEquals(predictable, result)
+    }
+
+    @Test// Test point #6
+    fun should_ReturnNullWhenTheEnterNumberOfAppsIsZero() {
+        //Given valid list of apps , Enter Number Of Apps want to Filter depend on it is equals to Zero
+        apps = setList()
+        //when search for top 3 app install
+        val result = analyzer.topTenAppInstall(apps = apps, size = 0)
+        //then should return Null
+        assertNull(result)
+    }
+
+    @Test// Test point #6
+    fun should_ReturnNullWhenTheEnterNumberOfAppsIsLessThenZero() {
+        //Given valid list of apps , Enter Number Of Apps want to Filter depend on it Is Less than Zero
+        apps = setList()
+        //when search for top 3 app install
+        val result = analyzer.topTenAppInstall(apps = apps, size =  -1)
+        //then should return Null
+        assertNull(result)
     }
 }
