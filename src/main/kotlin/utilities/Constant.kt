@@ -14,6 +14,7 @@ object Constant {
 
     const val FILE_NAME = "google_play.csv"
     const val DATE_FORMAT = "MMM-dd-yyyy"
+    const val KILO_BYTE = 1024.0
 }
 
 object TestConstant{

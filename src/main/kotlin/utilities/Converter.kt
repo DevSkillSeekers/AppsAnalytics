@@ -3,6 +3,7 @@ import java.math.BigDecimal
 import java.math.BigInteger
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.pow
 
 fun convertStringToDate (dateString:String): Date{
     val dateList = dateString.split(" ")
@@ -33,9 +34,9 @@ fun convertToByte(size:String): BigDecimal?{
 
     if (value!= null) {
       return when(size[size.lastIndex]) {
-            'K','k' ->  (value*1024).toBigDecimal()
-            'M','m' -> (value*1024*1024).toBigDecimal()
-            else -> (value*1024*1024*1024).toBigDecimal()
+            'K','k' ->  (value*Constant.KILO_BYTE).toBigDecimal()
+            'M','m' -> (value*Constant.KILO_BYTE.pow(2)).toBigDecimal()
+            else -> (value*Constant.KILO_BYTE.pow(3)).toBigDecimal()
         }
     }
     return null
