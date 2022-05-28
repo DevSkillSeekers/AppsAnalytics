@@ -156,6 +156,39 @@ internal class AnalyzerTest {
         assertEquals(expectedResultValue, functionResultValue)
     }
 
+    @Test
+    fun should_ReturnNull_When_EmptyList() {
+        // given empty list of apps
+        initializeAppList(0)
 
+        // when searching for "9 and up"
+        val result = analyzer.getPercentageAppsRunningOnSpecificVersion(apps, 9.0)
 
+        //then should return null
+        assertNull(result)
+    }
+
+    @Test
+    fun should_ReturnZero_When_VersionNotFound() {
+        // given valid list of apps and version not in the list
+        initializeAppList(1)
+
+        // when searching for "1.0"
+        val result = analyzer.getPercentageAppsRunningOnSpecificVersion(apps, 1.0)
+
+        //then should return null
+        assertEquals("0.0", result)
+    }
+
+    @Test
+    fun should_ReturnPercentage_When_Contains9() {
+        // given valid list of apps and version in the list
+        initializeAppList(1)
+
+        // when searching for "9 and up"
+        val result = analyzer.getPercentageAppsRunningOnSpecificVersion(apps, 9.0)
+
+        //then should return 50.0
+        assertEquals("50.0", result)
+    }
 }

@@ -16,7 +16,7 @@ fun main(args: Array<String>) {
             "\n${analyzer.findOldestApp(apps)}")
     println("--------------------------------------------")
     println("4# What is the percentage of apps running on android 9 and up only?"+
-            "\n${analyzer.percentageAppsRunningOnAndroid9(apps)}")
+            "\n${analyzer.getPercentageAppsRunningOnSpecificVersion(apps,9.0)}")
     println("--------------------------------------------")
     println("5# What are the largest 10 apps in the dataset?\n" +
             "${analyzer.getLargestApp(apps,10)}")
