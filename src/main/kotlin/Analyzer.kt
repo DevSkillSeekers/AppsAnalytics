@@ -65,12 +65,17 @@ class Analyzer {
         return null
     }
 
-    fun topTenAppInstall(appDataList: List<App>): List<String>? =
-        if (appDataList.isNotEmpty())
-            appDataList.asSequence()
+    /**
+     * @param apps is a list of app class
+     * @param size is Integer to give the user free to enter any number to return top install app depend on it
+     * @return a top ten app install from give list if the list is not null or empty
+     * */
+    fun topTenAppInstall(apps: List<App>, size: Int): List<String>? =
+        if (apps.isNotEmpty() && size > 0)
+            apps.asSequence()
                 .sortedByDescending { dataSorted -> dataSorted.installs }
                 .map { data -> data.appName }
-                .take(10)
+                .take(size)
                 .toList()
         else null
 }
