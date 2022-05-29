@@ -1,8 +1,8 @@
 package parser
 
+import model.App
 import utilities.Constant
 import utilities.convertStringToDate
-import App
 import utilities.convertToDouble
 import java.io.File
 
