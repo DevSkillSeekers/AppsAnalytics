@@ -1,3 +1,4 @@
+import model.App
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeAll
@@ -211,23 +212,23 @@ internal class AnalyzerTest {
         assertEquals(-1.0,result)
     }
 
-    @Test // Test point #3
+    @Test // Test point #4
     fun should_Return_PercentageAppsRunningOnSpecificVersion_when_HasValidList() {
         //Given valid list of apps and valid version
         apps = setList()
         val version = 9.0
-        //when search for the oldest app
+        //when calculate percentage
         val result = analyzer.getPercentageAppsRunningOnSpecificVersion(apps,version)
         //then check the result
         assertEquals(50.0, result)
     }
 
-    @Test // Test point #3
+    @Test // Test point #4
     fun should_ReturnZero_when_NoAppRunningOnSpecificVersion() {
         //Given valid list of apps and valid version
         apps = setList()
         val version = 10.0
-        //when search for the oldest app
+        //when calculate percentage
         val result = analyzer.getPercentageAppsRunningOnSpecificVersion(apps,version)
         //then check the result
         assertEquals(0.0, result)

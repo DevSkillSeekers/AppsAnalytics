@@ -1,3 +1,4 @@
+import model.App
 import utilities.calculatePercentage
 import utilities.convertToByte
 import java.math.BigDecimal
@@ -9,7 +10,7 @@ class Analyzer {
      * @param companyName is string
      * @return number of apps with given companyName.
      * */
-    fun findNumberOfAppsByCompanyName(apps: List<App>,companyName:String):Int {
+    fun findNumberOfAppsByCompanyName(apps: List<App>, companyName:String):Int {
         return if (apps.isNotEmpty() && companyName.isNotEmpty())
             apps.count { it.company.contains(companyName.trim(), true) }
         else
