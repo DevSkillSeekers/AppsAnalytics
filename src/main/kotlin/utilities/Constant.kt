@@ -13,6 +13,11 @@ object Constant {
     }
 
     const val FILE_NAME = "google_play.csv"
-    const val TEST_FILE_NAME = "google_play_test.csv"
     const val DATE_FORMAT = "MMM-dd-yyyy"
+    const val KILO_BYTE = 1024.0
+}
+
+object TestConstant{
+    const val CHANGE_SIZE_UPPER_LOWER_CASE = 1
+
 }

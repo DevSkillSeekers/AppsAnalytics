@@ -1,4 +1,3 @@
-import java.math.BigInteger
 import java.util.*
 
 class App (
@@ -9,5 +8,5 @@ class App (
     val size:String,
     val installs:Long,
     val currentVersion:String,
-    val requiresAndroid:String
+    val requiresAndroid:Double?
 )
