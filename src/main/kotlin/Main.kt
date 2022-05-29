@@ -8,7 +8,6 @@ fun main() {
 
     println("1# How many apps were developed by Google in the dataset? "+
             "\n${analyzer.findNumberOfAppsByCompanyName(apps,"Google")}")
-
     println("--------------------------------------------")
     println("2# What is the percentage of Medical apps?" +
             "\n%${analyzer.getPercentageOfCategory(apps,"Medical")}")
