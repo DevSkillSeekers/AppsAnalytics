@@ -11,7 +11,7 @@ class Analyzer {
      * */
     fun findNumberOfAppsByCompanyName(apps: List<App>,companyName:String):Int {
         return if (apps.isNotEmpty() && companyName.isNotEmpty())
-            apps.filter { it.company.contains(companyName.trim(), true) }.size
+            apps.count { it.company.contains(companyName.trim(), true) }
         else
             -1
     }
@@ -21,7 +21,8 @@ class Analyzer {
      * @return the oldest app in given list.
      * */
     fun findOldestApp(apps: List<App>): String? =
-        if (apps.isNotEmpty()) {apps.sortedBy { it.updatedDate }[0].appName} else null
+        if (apps.isNotEmpty()) {
+            apps.minByOrNull { it.updatedDate }!!.appName} else null
 
     /**
      * @param apps is a list of app class
@@ -29,7 +30,7 @@ class Analyzer {
      * @return the parentage of given version.
      * */
     fun getPercentageAppsRunningOnSpecificVersion(apps: List<App>, version:Double): Double =
-        calculatePercentage(apps.filter{ it.requiresAndroid != null && it.requiresAndroid == version }.size, apps.size)
+        calculatePercentage(apps.count{ it.requiresAndroid != null && it.requiresAndroid == version }, apps.size)
 
 
     /**
@@ -40,7 +41,7 @@ class Analyzer {
     fun getPercentageOfCategory(apps: List<App>,categoryName:String):Double =
         if (apps.isNotEmpty() && categoryName.isNotEmpty())
             calculatePercentage(
-                apps.filter { it.category.contains(categoryName.trim(), true) }.size,
+                apps.count { it.category.contains(categoryName.trim(), true) },
                 apps.size)
         else -1.0
 
