@@ -217,7 +217,7 @@ internal class AnalyzerTest {
         //Given valid list of apps and valid version
         apps = setList()
         val version = 9.0
-        //when search for the oldest app
+        //when calculate percentage
         val result = analyzer.getPercentageAppsRunningOnSpecificVersion(apps,version)
         //then check the result
         assertEquals(50.0, result)
@@ -228,7 +228,7 @@ internal class AnalyzerTest {
         //Given valid list of apps and valid version
         apps = setList()
         val version = 10.0
-        //when search for the oldest app
+        //when calculate percentage
         val result = analyzer.getPercentageAppsRunningOnSpecificVersion(apps,version)
         //then check the result
         assertEquals(0.0, result)
