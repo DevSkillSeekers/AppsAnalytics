@@ -9,7 +9,7 @@ import java.io.File
 class AppParser (private val fileName: String){
 
     /**
-     * @return list of all app inside DataSet without repetition
+     * @return list of apps after parsed from DataSet without repetition
      * */
     fun parseFile(): List<App> {
         val appList = mutableListOf<App>()

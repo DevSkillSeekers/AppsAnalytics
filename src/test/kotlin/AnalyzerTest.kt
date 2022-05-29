@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import utilities.TestConstant
-import utilities.calculatePercentage
 import java.util.*
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -26,11 +25,11 @@ internal class AnalyzerTest {
 
     private fun setList(testSet:Int =0):MutableList<App>{
         val  appList=  mutableListOf<App>()
-       when(testSet){
+        when(testSet){
            TestConstant.CHANGE_SIZE_UPPER_LOWER_CASE ->{
                appList.add(App("Books", "Amazon", "Libraries & Demo", Date("5/1/2000"), "21M", 500000, "1.0.0", 4.4))
                appList.add( App("AD", "Amazon", "Libraries & Demo", Date("1/1/2020"), "30k", 30, "1.0.0", 9.0))
-               appList.add(App("Google Photo", "Google", "Libraries & Demo", Date("2/1/2000"), "5.5g", 500, "1.0.0", 6.0))
+               appList.add(App("Google Photo", "Google ", "Libraries & Demo", Date("2/1/2000"), "5.5g", 500, "1.0.0", 6.0))
                appList.add(App("Google Files", "Google", "Medical", Date("1/1/2019"), "5g", 1000000, "1.0.0", 9.0))
            }
            else ->{
@@ -117,7 +116,7 @@ internal class AnalyzerTest {
     }
 
     @Test // Test Point #2
-    fun should_ReturnPercentage_When_ValidList() {
+    fun should_ReturnPercentageOfGivenCategory_When_ValidList() {
         //Given valid list of apps and valid categoryName
         apps = setList()
         val categoryName = "Medical"
@@ -128,7 +127,7 @@ internal class AnalyzerTest {
     }
 
     @Test // Test Point #2
-    fun should_ReturnPercentage_When_CategoryWithUpperOrLowerCase() {
+    fun should_ReturnPercentageOfGivenCategory_When_CategoryWithUpperOrLowerCase() {
         //Given list of apps and upperCase categoryName
         apps = setList()
         val categoryName = "MEDICAL"
@@ -139,7 +138,7 @@ internal class AnalyzerTest {
     }
 
     @Test // Test Point #2
-    fun should_ReturnPercentage_When_CategoryWithSpace() {
+    fun should_ReturnPercentageOfGivenCategory_When_CategoryWithSpace() {
         //Given valid list of apps and category name with space
         apps = setList()
         val categoryName = " MEDICAL "
@@ -150,11 +149,12 @@ internal class AnalyzerTest {
     }
 
     @Test // Test Point #2
-    fun should_ReturnMinus1_When_EmptyList() {
-        //Given empty list of apps
+    fun should_ReturnMinus1_When_CalculatePercentageOfCategoryWithEmptyList() {
+        //Given empty list of apps and valid category
         apps
+        val categoryName = "Medical"
         //when calculate % of medical apps in emptyList
-        val result = analyzer.getPercentageOfCategory(apps, "Medical")
+        val result = analyzer.getPercentageOfCategory(apps,categoryName)
         //then check the result
         assertEquals(-1.0, result)
     }
@@ -163,15 +163,16 @@ internal class AnalyzerTest {
     fun should_ReturnZero_When_CategoryNotFound() {
         //Given valid list of apps and category name not in list
         apps = setList()
+        val category = "Shopping"
         //when calculate % of category that not in list
-        val result = analyzer.getPercentageOfCategory(apps, "Shopping")
+        val result = analyzer.getPercentageOfCategory(apps,category)
         //then check the result
         assertEquals(0.0, result)
     }
 
     @Test // Test Point #2
     fun should_ReturnMinus1_When_CategoryIsEmpty() {
-        //Given valid list of apps and empty category
+        //Given valid list of apps and empty category name
         apps = setList()
         //when calculate % empty category name
         val result = analyzer.getPercentageOfCategory(apps, "")
@@ -180,7 +181,7 @@ internal class AnalyzerTest {
     }
 
     @Test // Test point #3
-    fun should_ReturnNull_When_EmptyList() {
+    fun should_ReturnNull_When_FindOldestAppForEmptyList() {
         //Given emptyList
         apps
         //when search for the oldest app
@@ -190,35 +191,13 @@ internal class AnalyzerTest {
     }
 
     @Test // Test point #3
-    fun should_Return_oldestApp_whenHasValidList() {
+    fun should_Return_TheOldestApp_whenHasValidList() {
         //Given valid list
         apps = setList()
         //when search for the oldest app
         val result = analyzer.findOldestApp(apps)
         //then check the result
         assertEquals("Google Photo", result)
-    }
-
-    @Test // Test point #3
-    fun should_ReturnMinus1_When_CalculatePercentage_DivideOnZero() {
-        //Given two number
-        val dividend =10
-        val divisor =0
-        //when calculate percentage and divide by zero
-        val result = calculatePercentage(dividend,divisor)
-        //then check the result
-        assertEquals(-1.0,result)
-    }
-
-    @Test // Test point #3
-    fun should_ReturnCorrectPercentage_When_CalculatePercentage() {
-        //Given two number
-        val dividend = 1
-        val divisor = 4
-        //when calculate percentage and divide by zero
-        val result = calculatePercentage(dividend,divisor)
-        //then check the result
-        assertEquals(25.0,result)
     }
 
     @Test // Test point #4

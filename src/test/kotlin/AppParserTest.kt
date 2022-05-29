@@ -1,60 +1,31 @@
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.function.Executable
+import org.junit.jupiter.api.TestInstance
+import parser.AppParser
 import utilities.Constant
-import utilities.convertStringToDate
-import utilities.convertToDouble
-import java.text.SimpleDateFormat
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class AppParserTest{
 
-    @Test // Test point #3
-    fun should_Return_ConvertedDate_When_hasValidDate() {
-        //Given date with correct format MMM DD YYYY
-        val date = "May 15 2022"
-        //when convert the stringDate to Date
-        val result = convertStringToDate(date)
+    private lateinit var parser: AppParser
+
+    @Test
+    fun should_ReturnEmptyList_When_FileNotFound(){
+        //Given filename that not found
+        parser = AppParser("file")
+        //when open the file to parse
+        val result = parser.parseFile()
         //then check the result
-        assertEquals(SimpleDateFormat(Constant.DATE_FORMAT).parse("MAY-15-2022"), result)
+        Assertions.assertEquals(mutableListOf<App>(),result)
     }
 
-    @Test // Test point #3
-    fun should_Return_ConvertedDate_When_DayLessThen10() {
-        //Given date with different format day is not 05
-        val date = "May 5 2022"
-        //when convert StringDate to date
-        val result = convertStringToDate(date)
+    @Test
+    fun should_ReturnListOfApp_When_CorrectFileName(){
+        //Given filename
+        parser = AppParser(Constant.FILE_NAME)
+        //when open the file to parse
+        val result = parser.parseFile()
         //then check the result
-        assertEquals(SimpleDateFormat(Constant.DATE_FORMAT).parse("MAY-05-2022"), result)
-    }
-
-    @Test // Test point #3
-    fun should_ThrowException_When_WrongDateFormat() {
-        //Given date with different format
-        val date = "5 5 2022"
-        //when convert StringDate to date
-        val wrongFormatException = Executable { convertStringToDate(date) }
-        //then check the result
-        assertThrows(Exception::class.java, wrongFormatException)
-    }
-
-    @Test // Test point #3
-    fun should_ReturnNull_When_Convert_NotValid_Version_ToDouble() {
-        //Given string
-        val version = "Varies with device"
-        //when convert StringDate to date
-        val result = convertToDouble(version)
-        //then check the result
-        assertNull(result)
-    }
-
-    @Test // Test point #3
-    fun should_ReturnVersion_When_Convert_ValidVersion_ToDouble() {
-        //Given string
-        val version = "4.4 and up"
-        //when convert StringDate to date
-        val result = convertToDouble(version)
-        //then check the result
-        assertEquals(4.4,result)
+        Assertions.assertEquals(4426,result.size)
     }
 }
