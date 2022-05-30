@@ -40,12 +40,17 @@ class Analyzer {
      * @param categoryName is string of category that we need know
      * @return a percentage of given category from give list.
      * */
-    fun getPercentageOfCategory(apps: List<App>,categoryName:String):Double =
-        if (apps.isNotEmpty() && categoryName.isNotEmpty())
-            calculatePercentage(
+    fun getPercentageOfCategory(apps: List<App>,categoryName:String):Double {
+        if (apps.isNotEmpty() && categoryName.isNotEmpty()){
+            return  calculatePercentage(
                 apps.count { it.category.contains(categoryName.trim(), true) },
-                apps.size)
-        else -1.0
+                apps.size
+            )
+        }
+        return -1.0
+
+    }
+
 
 
     fun getLargestApp(apps: List<App>,size:Int):List<App>?{
@@ -72,12 +77,17 @@ class Analyzer {
      * @param size is Integer to give the user free to enter any number to return top install app depend on it
      * @return a top ten app install from give list if the list is not null or empty
      * */
-    fun topNAppInstall(apps: List<App>, size: Int): List<App>? =
-        if (apps.isNotEmpty() && size > 0)
-            apps.asSequence()
+    fun topNAppInstall(apps: List<App>, size: Int): List<App>? {
+        if (apps.isNotEmpty() && size > 0) {
+            return  apps.asSequence()
                 .sortedByDescending { dataSorted -> dataSorted.installs }
-                .map { data -> data }
                 .take(size)
                 .toList()
-        else null
+        }
+        return  null
+    }
+
+    fun  getLargestAppSizeByCompanyName(apps: List<App>, companyName:String):BigDecimal?{
+        TODO("Not implemented")
+    }
 }
