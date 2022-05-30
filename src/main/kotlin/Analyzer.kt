@@ -11,19 +11,20 @@ class Analyzer {
      * @return number of apps with given companyName.
      * */
     fun findNumberOfAppsByCompanyName(apps: List<App>, companyName:String):Int {
-        return if (apps.isNotEmpty() && companyName.isNotEmpty())
+        return if (apps.isNotEmpty() && companyName.isNotEmpty()) {
             apps.count { it.company.contains(companyName.trim(), true) }
-        else
+        } else {
             -1
+        }
     }
 
     /**
      * @param apps is a list of App class
      * @return the oldest app in given list.
      * */
-    fun findOldestApp(apps: List<App>): String? =
+    fun findOldestApp(apps: List<App>): App? =
         if (apps.isNotEmpty()) {
-            apps.minByOrNull { it.updatedDate }!!.appName} else null
+            apps.minByOrNull { it.updatedDate }} else null
 
     /**
      * @param apps is a list of app class
@@ -47,7 +48,7 @@ class Analyzer {
         else -1.0
 
 
-    fun getLargestApp(apps: List<App>,size:Int):List<String>?{
+    fun getLargestApp(apps: List<App>,size:Int):List<App>?{
         if (apps.isNotEmpty() && size <= apps.size ) {
             val list = mutableMapOf<App,BigDecimal>()
 
@@ -55,12 +56,13 @@ class Analyzer {
                 .apply {
                     onEach {
                         val value = convertToByte(it.size)
-                        if(value!=null)
+                        if(value!=null) {
                             list[it] = value
+                        }
                     }
                 }
             return list.toList().sortedByDescending { (_, value) -> value}.toMap()
-                .keys.map { it-> it.appName }.toList().take(size)
+                .keys.map { it-> it }.toList().take(size)
         }
         return null
     }
@@ -70,11 +72,11 @@ class Analyzer {
      * @param size is Integer to give the user free to enter any number to return top install app depend on it
      * @return a top ten app install from give list if the list is not null or empty
      * */
-    fun topTenAppInstall(apps: List<App>, size: Int): List<String>? =
+    fun topNAppInstall(apps: List<App>, size: Int): List<App>? =
         if (apps.isNotEmpty() && size > 0)
             apps.asSequence()
                 .sortedByDescending { dataSorted -> dataSorted.installs }
-                .map { data -> data.appName }
+                .map { data -> data }
                 .take(size)
                 .toList()
         else null
