@@ -6,7 +6,7 @@ import utilities.convertStringToDate
 import utilities.convertToDouble
 import java.io.File
 
-class AppParser (private val fileName: String){
+class DataParser(private val fileName: String) {
 
     /**
      * @return list of apps after parsed from DataSet without repetition
@@ -20,7 +20,7 @@ class AppParser (private val fileName: String){
                 }
             }
         }
-        return appList.distinctBy { Pair(it.appName, it.company)}
+        return appList.distinctBy { Pair(it.appName, it.company) }
     }
 
     /**

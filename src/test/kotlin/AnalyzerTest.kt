@@ -198,7 +198,7 @@ internal class AnalyzerTest {
         //when search for the oldest app
         val result = analyzer.findOldestApp(apps)
         //then check the result
-        assertEquals("Google Photo", result)
+        assertEquals(apps[2], result)
     }
 
     @Test // Test point #4
@@ -240,10 +240,10 @@ internal class AnalyzerTest {
         apps = setList()
         val valueReturnNumber = 4
         //when search for top 4 largest app
-        val functionResultValue = analyzer.getLargestApp(apps,valueReturnNumber)
+        val largestFourApps = analyzer.getLargestApp(apps,valueReturnNumber)
         //then should return that order of top 4 largest app that compares the size with unit KB
-        val expectedResultValue = listOf("Google Photo", "AD","Books", "Google Files")
-        assertEquals(expectedResultValue, functionResultValue)
+        val expectedResultValue = listOf(apps[2], apps[1],apps[0],apps[3])
+        assertEquals(expectedResultValue, largestFourApps)
     }
 
     @Test// Test point #5
@@ -276,7 +276,7 @@ internal class AnalyzerTest {
         //when search for top 2 largest app
         val functionResultValue = analyzer.getLargestApp(apps,valueReturnNumber)
         //then should return
-        val expectedResultValue = listOf("Google Photo","Google Files")
+        val expectedResultValue = listOf(apps[2],apps[3])
         assertEquals(expectedResultValue,functionResultValue)
     }
 
@@ -285,7 +285,7 @@ internal class AnalyzerTest {
         //Given empty list
         apps
         //when search for find top ten app Install
-        val result = analyzer.topTenAppInstall(apps = apps, size = 10)
+        val result = analyzer.topNAppInstall(apps = apps, size = 10)
         //then should return null
         assertNull(result)
     }
@@ -295,11 +295,12 @@ internal class AnalyzerTest {
         //Given list have Valid data
         apps = setList()
         //when search for top 3 app install
-        val result = analyzer.topTenAppInstall(apps = apps, size = 2)
+        val result = analyzer.topNAppInstall(apps = apps, size = 2)
         //then should return that order of top 10 install app
         val predictable = listOf(
-            "Google Files",
-            "Books",
+            apps.last(),
+            apps.first(),
+
         )
         assertEquals(predictable, result)
     }
@@ -309,7 +310,7 @@ internal class AnalyzerTest {
         //Given valid list of apps , Enter Number Of Apps want to Filter depend on it is equals to Zero
         apps = setList()
         //when search for top 3 app install
-        val result = analyzer.topTenAppInstall(apps = apps, size = 0)
+        val result = analyzer.topNAppInstall(apps = apps, size = 0)
         //then should return Null
         assertNull(result)
     }
@@ -319,7 +320,7 @@ internal class AnalyzerTest {
         //Given valid list of apps , Enter Number Of Apps want to Filter depend on it Is Less than Zero
         apps = setList()
         //when search for top 3 app install
-        val result = analyzer.topTenAppInstall(apps = apps, size =  -1)
+        val result = analyzer.topNAppInstall(apps = apps, size =  -1)
         //then should return Null
         assertNull(result)
     }
