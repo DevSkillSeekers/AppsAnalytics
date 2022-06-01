@@ -6,7 +6,7 @@ import utilities.convertStringToDate
 import utilities.convertToDouble
 import java.io.File
 
-class AppParser (private val fileName: String){
+class CSVParser (private val fileName: String){
 
     /**
      * @return list of apps after parsed from DataSet without repetition
