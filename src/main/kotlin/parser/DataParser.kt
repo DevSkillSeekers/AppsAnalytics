@@ -2,8 +2,7 @@ package parser
 
 import model.App
 import utilities.Constant
-import utilities.convertStringToDate
-import utilities.convertToDouble
+import utilities.Converter
 import java.io.File
 
 class DataParser(private val fileName: String) {
@@ -29,15 +28,16 @@ class DataParser(private val fileName: String) {
      * */
     private fun addApp(s: String): App {
         val mList = s.split(",")
+        val converter = Converter()
         return App(
             appName = mList[Constant.ColumnIndex.APP_NAME],
             company = mList[Constant.ColumnIndex.COMPANY],
             category = mList[Constant.ColumnIndex.CATEGORY],
-            updatedDate = convertStringToDate(mList[Constant.ColumnIndex.UPDATE_DATE]),
+            updatedDate = converter.convertStringToDate(mList[Constant.ColumnIndex.UPDATE_DATE]),
             size = mList[Constant.ColumnIndex.SIZE],
             installs = mList[Constant.ColumnIndex.INSTALLS].toLong(),
             currentVersion = mList[Constant.ColumnIndex.CURRENT_VERSION],
-            requiresAndroid = convertToDouble(mList[Constant.ColumnIndex.REQUIRED_ANDROID])
+            requiresAndroid = converter.convertToDouble(mList[Constant.ColumnIndex.REQUIRED_ANDROID])
         )
     }
 }
