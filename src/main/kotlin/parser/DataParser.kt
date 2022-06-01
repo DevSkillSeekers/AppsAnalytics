@@ -7,9 +7,6 @@ import java.io.File
 
 class DataParser(private val fileName: String) {
 
-    /**
-     * @return list of apps after parsed from DataSet without repetition
-     * */
     fun parseFile(): List<App> {
         val appList = mutableListOf<App>()
         File(fileName).apply {
@@ -22,10 +19,6 @@ class DataParser(private val fileName: String) {
         return appList.distinctBy { Pair(it.appName, it.company) }
     }
 
-    /**
-     * @param s is line of dataSet
-     * @return object of app
-     * */
     private fun addApp(s: String): App {
         val mList = s.split(",")
         val converter = Converter()

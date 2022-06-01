@@ -5,11 +5,7 @@ import java.math.BigDecimal
 class Analyzer {
 
      lateinit var converter: Converter
-    /**
-     * @param apps is a list of app class
-     * @param companyName is string
-     * @return number of apps with given companyName.
-     * */
+
     fun findNumberOfAppsByCompanyName(apps: List<App>, companyName:String):Int {
         return if (apps.isNotEmpty() && companyName.isNotEmpty()) {
             apps.count { it.company.contains(companyName.trim(), true) }
@@ -18,28 +14,13 @@ class Analyzer {
         }
     }
 
-    /**
-     * @param apps is a list of App class
-     * @return the oldest app in given list.
-     * */
     fun findOldestApp(apps: List<App>): App? =
         if (apps.isNotEmpty()) {
             apps.minByOrNull { it.updatedDate }} else null
 
-    /**
-     * @param apps is a list of app class
-     * @param version is string of android version
-     * @return the parentage of given version.
-     * */
     fun getPercentageAppsRunningOnSpecificVersion(apps: List<App>, version:Double): Double =
         converter.calculatePercentage(apps.count{ it.requiresAndroid != null && it.requiresAndroid == version }, apps.size)
 
-
-    /**
-     * @param apps is a list of app class
-     * @param categoryName is string of category that we need know
-     * @return a percentage of given category from give list.
-     * */
     fun getPercentageOfCategory(apps: List<App>,categoryName:String):Double {
         if (apps.isNotEmpty() && categoryName.isNotEmpty()){
             return  converter.calculatePercentage(
@@ -72,11 +53,6 @@ class Analyzer {
         return null
     }
 
-    /**
-     * @param apps is a list of app class
-     * @param size is Integer to give the user free to enter any number to return top install app depend on it
-     * @return a top ten app install from give list if the list is not null or empty
-     * */
     fun topNAppInstall(apps: List<App>, size: Int): List<App>? {
         if (apps.isNotEmpty() && size > 0) {
             return  apps.asSequence()
