@@ -45,7 +45,10 @@ class Analyzer {
             apps.filterNot { it.size.contains("Varies", true) }
                 .apply {
                     onEach {
-                        val value = converter.convertToByte(it.size)
+
+
+                        val value = (it.size).convertToByte()
+
                         if(value!=null) {
                             list[it] = value
                         }

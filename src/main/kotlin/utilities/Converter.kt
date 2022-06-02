@@ -6,6 +6,7 @@ import kotlin.math.pow
 
 class Converter {
 
+
     fun convertStringToDate(dateString: String): Date {
         val dateList = dateString.split(" ")
         val dateNewFormat =
