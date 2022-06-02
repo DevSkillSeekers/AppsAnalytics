@@ -19,7 +19,7 @@ class DataParser(private val fileName: String) {
         return appList.distinctBy { Pair(it.appName, it.company) }
     }
 
-    private fun addApp(s: String): App {
+     fun addApp(s: String): App {
         val mList = s.split(",")
         val converter = Converter()
         return App(

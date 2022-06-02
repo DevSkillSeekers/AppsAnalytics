@@ -10,13 +10,17 @@ class Analyzer {
         return if (apps.isNotEmpty() && companyName.isNotEmpty()) {
             apps.count { it.company.contains(companyName.trim(), true) }
         } else {
-            -1
+            return -1
         }
     }
 
-    fun findOldestApp(apps: List<App>): App? =
-        if (apps.isNotEmpty()) {
-            apps.minByOrNull { it.updatedDate }} else null
+    fun findOldestApp(apps: List<App>): App? {
+        if (apps.isEmpty()) {
+            return null
+        }
+        return apps.minByOrNull { it.updatedDate }
+    }
+
 
     fun getPercentageAppsRunningOnSpecificVersion(apps: List<App>, version:Double): Double =
         converter.calculatePercentage(apps.count{ it.requiresAndroid != null && it.requiresAndroid == version }, apps.size)
@@ -53,11 +57,11 @@ class Analyzer {
         return null
     }
 
-    fun topNAppInstall(apps: List<App>, size: Int): List<App>? {
-        if (apps.isNotEmpty() && size > 0) {
+    fun topNAppInstall(apps: List<App>, numberOfApps: Int): List<App>? {
+        if (apps.isNotEmpty() && numberOfApps > 0) {
             return  apps.asSequence()
                 .sortedByDescending { dataSorted -> dataSorted.installs }
-                .take(size)
+                .take(numberOfApps)
                 .toList()
         }
         return  null
