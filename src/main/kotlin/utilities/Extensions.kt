@@ -1,6 +1,8 @@
 package utilities
 
 import java.math.BigDecimal
+import java.text.SimpleDateFormat
+import java.util.Date
 import kotlin.math.pow
 
 fun String.convertToByte(): BigDecimal?{
@@ -24,5 +26,13 @@ fun String.convertToByte(): BigDecimal?{
         }
     }
     return null
+}
+
+/**
+ * @param this is a input date of string
+ * @return a date after convert from string
+ * */
+fun String.convertToDate(): Date{
+    return  SimpleDateFormat(Constant.DATE_FORMAT).parse(this)
 }
 
