@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import utilities.TestConstant
 import java.util.*
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -323,5 +322,10 @@ internal class AnalyzerTest {
         //then should return Null
         assertNull(result)
     }
+
+}
+
+object TestConstant{
+    const val CHANGE_SIZE_UPPER_LOWER_CASE = 1
 
 }

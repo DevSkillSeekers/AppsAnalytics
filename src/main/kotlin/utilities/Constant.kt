@@ -17,7 +17,3 @@ object Constant {
     const val KILO_BYTE = 1024.0
 }
 
-object TestConstant{
-    const val CHANGE_SIZE_UPPER_LOWER_CASE = 1
-
-}
