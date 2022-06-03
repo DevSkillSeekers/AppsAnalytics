@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import utilities.TestConstant
 import java.util.*
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -285,7 +284,7 @@ internal class AnalyzerTest {
         //Given empty list
         apps
         //when search for find top ten app Install
-        val result = analyzer.topTenAppInstall(apps = apps, size = 10)
+        val result = analyzer.topNAppsInstall(apps = apps, size = 10)
         //then should return null
         assertNull(result)
     }
@@ -295,7 +294,7 @@ internal class AnalyzerTest {
         //Given list have Valid data
         apps = setList()
         //when search for top 3 app install
-        val result = analyzer.topTenAppInstall(apps = apps, size = 2)
+        val result = analyzer.topNAppsInstall(apps = apps, size = 2)
         //then should return that order of top 10 install app
         val predictable = listOf(
             "Google Files",
@@ -309,7 +308,7 @@ internal class AnalyzerTest {
         //Given valid list of apps , Enter Number Of Apps want to Filter depend on it is equals to Zero
         apps = setList()
         //when search for top 3 app install
-        val result = analyzer.topTenAppInstall(apps = apps, size = 0)
+        val result = analyzer.topNAppsInstall(apps = apps, size = 0)
         //then should return Null
         assertNull(result)
     }
@@ -319,9 +318,14 @@ internal class AnalyzerTest {
         //Given valid list of apps , Enter Number Of Apps want to Filter depend on it Is Less than Zero
         apps = setList()
         //when search for top 3 app install
-        val result = analyzer.topTenAppInstall(apps = apps, size =  -1)
+        val result = analyzer.topNAppsInstall(apps = apps, size =  -1)
         //then should return Null
         assertNull(result)
     }
+
+}
+
+object TestConstant{
+    const val CHANGE_SIZE_UPPER_LOWER_CASE = 1
 
 }
