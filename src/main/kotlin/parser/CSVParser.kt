@@ -37,7 +37,6 @@ class CSVParser(private val fileName: String) : DataSource {
             updatedDate = convertStringToDate(mList[Constant.ColumnIndex.UPDATE_DATE]),
             size = mList[Constant.ColumnIndex.SIZE],
             installs = mList[Constant.ColumnIndex.INSTALLS].toLong(),
-            currentVersion = mList[Constant.ColumnIndex.CURRENT_VERSION],
             requiresAndroid = convertToDouble(mList[Constant.ColumnIndex.REQUIRED_ANDROID])
         )
     }
