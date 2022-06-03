@@ -12,3 +12,17 @@ class App (
     val currentVersion:String,
     val requiresAndroid:Double?
 )
+
+//object App {
+//    init {
+//        val appName: String
+//        val appCreatedCompany: String
+//        val appCategory: String
+//        val appUpdatedDate: Date
+//        val appSize: String
+//        val appInstalls: Long
+//        val appCurrentVersion: String
+//        val appRequiresAndroid: Double?
+//
+//    }
+//}

@@ -1,17 +1,18 @@
 package parser
 
+import interfaces.DataSource
 import model.App
 import utilities.Constant
 import utilities.convertStringToDate
 import utilities.convertToDouble
 import java.io.File
 
-class AppParser (private val fileName: String){
+class CSVParser(private val fileName: String) : DataSource {
 
     /**
      * @return list of apps after parsed from DataSet without repetition
      * */
-    fun parseFile(): List<App> {
+    override fun getAllApps(): List<App> {
         val appList = mutableListOf<App>()
         File(fileName).apply {
             if (this.exists()) {
@@ -20,7 +21,7 @@ class AppParser (private val fileName: String){
                 }
             }
         }
-        return appList.distinctBy { Pair(it.appName, it.company)}
+        return appList.distinctBy { Pair(it.appName, it.company) }
     }
 
     /**
@@ -40,4 +41,5 @@ class AppParser (private val fileName: String){
             requiresAndroid = convertToDouble(mList[Constant.ColumnIndex.REQUIRED_ANDROID])
         )
     }
+
 }
