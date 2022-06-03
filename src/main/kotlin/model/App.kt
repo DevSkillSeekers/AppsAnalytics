@@ -2,14 +2,13 @@ package model
 
 import java.util.*
 
-class App (
+class App(
     val appName:String,
     val company:String,
     val category:String,
     val updatedDate: Date,
     val size:String,
     val installs:Long,
-    val currentVersion:String,
     val requiresAndroid:Double?
 )
 
