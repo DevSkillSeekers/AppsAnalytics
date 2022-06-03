@@ -1,5 +1,7 @@
 package Interface
 
+import model.App
+
 interface DataSource {
-    fun getAllApps()
+    fun getAllApps(): List<App>
 }
