@@ -39,12 +39,13 @@ class Analyzer {
      * @param categoryName is string of category that we need know
      * @return a percentage of given category from give list.
      * */
-    fun getPercentageOfCategory(apps: List<App>,categoryName:String):Double =
-        if (apps.isNotEmpty() && categoryName.isNotEmpty())
+    fun getPercentageOfCategory(apps: List<App>,categoryName:String):Double {
+        return if (apps.isNotEmpty() && categoryName.isNotEmpty())
             calculatePercentage(
                 apps.count { it.category.contains(categoryName.trim(), true) },
                 apps.size)
         else -1.0
+    }
 
 
     fun getLargestApp(apps: List<App>,size:Int):List<String>?{
