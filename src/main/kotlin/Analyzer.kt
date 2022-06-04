@@ -48,22 +48,20 @@ class Analyzer {
     }
 
 
-    fun getLargestApp(apps: List<App>,size:Int):List<String>?{
-        if (apps.isNotEmpty() && size <= apps.size ) {
-            val list = mutableMapOf<App,BigDecimal>()
-
-            apps.filterNot { it.size.contains("Varies", true) }
-                .apply {
-                    onEach {
-                        val value = convertToByte(it.size)
-                        if(value!=null)
-                            list[it] = value
-                    }
-                }
-            return list.toList().sortedByDescending { (_, value) -> value}.toMap()
-                .keys.map { it-> it.appName }.toList().take(size)
+    fun getLargestApp(listOfGooglePlayApp: List<App>,size:Int):List<String>?{
+        val listOfAppName: MutableList<String> = mutableListOf()
+        if (listOfGooglePlayApp.size > size) {
+            listOfGooglePlayApp.sortedByDescending { it.size }.subList(0, size).forEach {
+                listOfAppName.add(it.appName)
+            }
+        } else {
+            listOfGooglePlayApp.sortedByDescending { it.size }.forEach {
+                listOfAppName.add(it.appName)
+            }
         }
-        return null
+        if (listOfAppName.size == 0)
+            return null
+        return listOfAppName
     }
 
     /**

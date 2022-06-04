@@ -7,7 +7,7 @@ class App(
     val company:String,
     val category:String,
     val updatedDate: Date,
-    val size:String,
+    val size:Double,
     val installs:Long,
     val requiresAndroid:Double?
 )

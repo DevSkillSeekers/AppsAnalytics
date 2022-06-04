@@ -1,5 +1,6 @@
 package parser
 
+import convertStringToSizeUnit
 import interfaces.DataSource
 import model.App
 import utilities.Constant
@@ -35,7 +36,7 @@ class CSVParser(private val fileName: String) : DataSource {
             company = mList[Constant.ColumnIndex.COMPANY],
             category = mList[Constant.ColumnIndex.CATEGORY],
             updatedDate = convertStringToDate(mList[Constant.ColumnIndex.UPDATE_DATE]),
-            size = mList[Constant.ColumnIndex.SIZE],
+            size = mList[Constant.ColumnIndex.SIZE].convertStringToSizeUnit(),
             installs = mList[Constant.ColumnIndex.INSTALLS].toLong(),
             requiresAndroid = convertToDouble(mList[Constant.ColumnIndex.REQUIRED_ANDROID])
         )
