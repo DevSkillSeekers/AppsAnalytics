@@ -324,5 +324,57 @@ internal class AnalyzerTest {
         //then should return Null
         assertNull(result)
     }
+    @Test
+    fun should_ReturnNull_When_ListEmpty(){
+        //Given empty list of apps
+        apps
+        //when calculate the largest apps that developed by companyName
+        val result = analyzer.getLargestNAppSizeByCompanyName(apps,"google",1)
+        //then check the result
+        assertNull(result)
+
+    }
+    @Test
+    fun should_ReturnTopNLargestAppsByCompany_WhenGivenCorrectInput() {
+        //given valid list and valid size
+        apps = setList()
+        val numberOfApp = 1
+        //when search  the largest app develop by companyName
+        val largesApps = analyzer.getLargestNAppSizeByCompanyName(apps,"Google",numberOfApp)
+        //then should return that order of top 4 largest app that compares the size with unit KB
+        val expectedResultValue = listOf(apps[2])
+        assertEquals(expectedResultValue, largesApps)
+    }
+    @Test
+    fun should_ReturnNull_When_CompanyIsEmpty() {
+        //Given valid list of apps and empty category name
+        apps = setList()
+        //when calculate % empty company name
+        val result = analyzer.getLargestNAppSizeByCompanyName(apps, "",1)
+        //then check the result
+        assertNull(result)
+    }
+    @Test
+    fun should_ReturnNull_When_CompanyIsLowerCase() {
+        //Given valid list of apps and lower case company name
+        apps = setList()
+        //when company is lower case
+        val largesApps = analyzer.getLargestNAppSizeByCompanyName(apps, "google",1)
+
+        //then check the result
+        val expectedResultValue = listOf(apps[2])
+        assertEquals(expectedResultValue, largesApps)
+    }
+    @Test
+    fun should_ReturnNull_When_CompanyIsUpperCase() {
+        //Given valid list of apps and upper case company name
+        apps = setList()
+        //when company is upper case
+        val largesApps = analyzer.getLargestNAppSizeByCompanyName(apps, "GOOGLE",1)
+
+        //then check the result
+        val expectedResultValue = listOf(apps[2])
+        assertEquals(expectedResultValue, largesApps)
+    }
 
 }
