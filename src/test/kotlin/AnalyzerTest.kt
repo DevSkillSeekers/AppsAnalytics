@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
+import utilities.Converter
 import utilities.TestConstant
 import java.util.*
 
@@ -16,7 +17,7 @@ internal class AnalyzerTest {
 
     @BeforeAll
     fun setup() {
-        analyzer = Analyzer()
+        analyzer = Analyzer(Converter())
     }
 
     @BeforeEach

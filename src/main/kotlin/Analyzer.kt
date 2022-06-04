@@ -1,10 +1,10 @@
 import model.App
 import utilities.Converter
+import utilities.convertToByte
 import java.math.BigDecimal
 
-class Analyzer {
+class Analyzer (val converter:Converter){
 
-     lateinit var converter: Converter
 
     fun findNumberOfAppsByCompanyName(apps: List<App>, companyName:String):Int {
         return if (apps.isNotEmpty() && companyName.isNotEmpty()) {
