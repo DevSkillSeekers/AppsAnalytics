@@ -4,8 +4,9 @@ import utilities.Converter
 
 fun main() {
 
-    val apps = DataParser(Constant.FILE_NAME).parseFile()
+    val apps = DataParser(Constant.FILE_NAME).getAllApps()
     val analyzer = Analyzer(Converter())
+
 
     println("1# How many apps were developed by Google in the dataset? "+
             "\n${analyzer.findNumberOfAppsByCompanyName(apps,"Google")}")

@@ -6,6 +6,7 @@ import java.math.BigDecimal
 class Analyzer (val converter:Converter){
 
 
+
     fun findNumberOfAppsByCompanyName(apps: List<App>, companyName:String):Int {
         return if (apps.isNotEmpty() && companyName.isNotEmpty()) {
             apps.count { it.company.contains(companyName.trim(), true) }
@@ -70,7 +71,7 @@ class Analyzer (val converter:Converter){
         return  null
     }
 
-    fun  getLargestAppSizeByCompanyName(apps: List<App>, companyName:String):BigDecimal?{
+    fun  getLargestNAppSizeByCompanyName(apps: List<App>, companyName:String,numberOfApps:Int):List<App>?{
         TODO("Not implemented")
     }
 }
