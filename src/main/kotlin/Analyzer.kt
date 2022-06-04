@@ -1,10 +1,11 @@
 import model.App
 import utilities.Converter
+import utilities.convertToByte
 import java.math.BigDecimal
 
 class Analyzer {
 
-     lateinit var converter: Converter
+     private lateinit var converter: Converter
 
     fun findNumberOfAppsByCompanyName(apps: List<App>, companyName:String):Int {
         return if (apps.isNotEmpty() && companyName.isNotEmpty()) {
@@ -70,7 +71,7 @@ class Analyzer {
         return  null
     }
 
-    fun  getLargestAppSizeByCompanyName(apps: List<App>, companyName:String):BigDecimal?{
+    fun  getLargestNAppSizeByCompanyName(apps: List<App>, companyName:String,numberOfApps:Int):List<App>?{
         TODO("Not implemented")
     }
 }
