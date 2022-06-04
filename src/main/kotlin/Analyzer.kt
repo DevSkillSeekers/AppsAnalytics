@@ -72,6 +72,17 @@ class Analyzer {
     }
 
     fun  getLargestNAppSizeByCompanyName(apps: List<App>, companyName:String,numberOfApps:Int):List<App>?{
-        TODO("Not implemented")
+        if (apps.isNotEmpty() && companyName.isNotEmpty() ){
+            var list = mutableListOf<App>()
+            apps.forEach {
+                if (it.company.lowercase() == companyName.lowercase()){
+                    list = listOf(it) as MutableList<App>
+
+                    return   getLargestApp(list, 1)}
+
+            }
+        }
+
+        return null
     }
-}
+    }
