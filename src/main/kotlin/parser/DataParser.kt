@@ -1,17 +1,15 @@
 package parser
 
+import Interface.DataSource
 import model.App
-import utilities.Constant
-
-import utilities.convertStringToDate
-import utilities.convertToDate
-import utilities.convertToDouble
+import utilities.*
 
 import java.io.File
 
-class DataParser(private val fileName: String) {
+class DataParser(private val fileName: String): DataSource {
 
-    fun parseFile(): List<App> {
+    override
+    fun getAllApps(): List<App> {
         val appList = mutableListOf<App>()
         File(fileName).apply {
             if (this.exists()) {
