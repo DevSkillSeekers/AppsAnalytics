@@ -10,11 +10,15 @@ fun String.convertToByte(): BigDecimal?{
     for (c in this){
         result += if (c.isDigit())
             c
-        else if ( c == '.' && !result.contains("."))
+        else if ( c == '.' && !result.contains(".")) {
             c
-        else if ( c == '.' && result.contains("."))
-            return null
-        else break
+        } else {
+            if ( c == '.' && result.contains("."))
+                return null
+            else {
+                break
+            }
+        }
     }
     val value = result.toDoubleOrNull()
     if (value!= null) {

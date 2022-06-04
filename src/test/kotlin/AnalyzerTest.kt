@@ -355,7 +355,7 @@ internal class AnalyzerTest {
         assertNull(result)
     }
     @Test
-    fun should_ReturnNull_When_CompanyIsLowerCase() {
+    fun should_ReturnTopNLargestAppsByCompany_When_CompanyIsLowerCase() {
         //Given valid list of apps and lower case company name
         apps = setList()
         //when company is lower case
@@ -366,7 +366,7 @@ internal class AnalyzerTest {
         assertEquals(expectedResultValue, largesApps)
     }
     @Test
-    fun should_ReturnNull_When_CompanyIsUpperCase() {
+    fun should_ReturnTopNLargestAppsByCompany_When_CompanyIsUpperCase() {
         //Given valid list of apps and upper case company name
         apps = setList()
         //when company is upper case
