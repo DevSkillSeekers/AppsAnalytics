@@ -4,8 +4,7 @@ import convertStringToSizeUnit
 import interfaces.DataSource
 import model.App
 import utilities.Constant
-import utilities.convertStringToDate
-import utilities.convertToDouble
+import utilities.Converter
 import java.io.File
 
 class CSVParser(private val fileName: String) : DataSource {
@@ -31,14 +30,15 @@ class CSVParser(private val fileName: String) : DataSource {
      * */
     private fun addApp(s: String): App {
         val mList = s.split(",")
+        val converter = Converter()
         return App(
             appName = mList[Constant.ColumnIndex.APP_NAME],
             company = mList[Constant.ColumnIndex.COMPANY],
             category = mList[Constant.ColumnIndex.CATEGORY],
-            updatedDate = convertStringToDate(mList[Constant.ColumnIndex.UPDATE_DATE]),
+            updatedDate = converter.convertStringToDate(mList[Constant.ColumnIndex.UPDATE_DATE]),
             size = mList[Constant.ColumnIndex.SIZE].convertStringToSizeUnit(),
             installs = mList[Constant.ColumnIndex.INSTALLS].toLong(),
-            requiresAndroid = convertToDouble(mList[Constant.ColumnIndex.REQUIRED_ANDROID])
+            requiresAndroid = converter.convertToDouble(mList[Constant.ColumnIndex.REQUIRED_ANDROID])
         )
     }
 

@@ -1,10 +1,10 @@
 import model.App
-import utilities.calculatePercentage
-import utilities.convertToByte
+import utilities.Converter
 import java.math.BigDecimal
 
 class Analyzer {
 
+    private val converter = Converter()
     /**
      * @param apps is a list of app class
      * @param companyName is string
@@ -31,7 +31,7 @@ class Analyzer {
      * @return the parentage of given version.
      * */
     fun getPercentageAppsRunningOnSpecificVersion(apps: List<App>, version:Double): Double =
-        calculatePercentage(apps.count{ it.requiresAndroid != null && it.requiresAndroid == version }, apps.size)
+        converter.calculatePercentage(apps.count{ it.requiresAndroid != null && it.requiresAndroid == version }, apps.size)
 
 
     /**
@@ -41,7 +41,7 @@ class Analyzer {
      * */
     fun getPercentageOfCategory(apps: List<App>,categoryName:String):Double {
         return if (apps.isNotEmpty() && categoryName.isNotEmpty())
-            calculatePercentage(
+            converter.calculatePercentage(
                 apps.count { it.category.contains(categoryName.trim(), true) },
                 apps.size)
         else -1.0
