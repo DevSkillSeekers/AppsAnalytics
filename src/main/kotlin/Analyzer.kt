@@ -9,27 +9,36 @@ class Analyzer {
      * @return number of apps with given companyName.
      * */
     fun findNumberOfAppsByCompanyName(apps: List<App>, companyName:String):Int {
-        return if (apps.isNotEmpty() && companyName.isNotEmpty())
-            apps.count { it.company.contains(companyName.trim(), true) }
-        else
+        return if (apps.isNotEmpty() && companyName.isNotEmpty()){
+            return apps.count { it.company.contains(companyName.trim(), true) }
+        }
+        else {
             -1
+        }
     }
 
     /**
      * @param apps is a list of App class
      * @return the oldest app in given list.
      * */
-    fun findOldestApp(apps: List<App>): String? =
-        if (apps.isNotEmpty()) {
-            apps.minByOrNull { it.updatedDate }!!.appName} else null
+    fun findOldestApp(apps: List<App>): String? {
+        return if (apps.isNotEmpty()) {
+            apps.minByOrNull { it.updatedDate }!!.appName
+        } else {
+            null
+        }
+    }
+
 
     /**
      * @param apps is a list of app class
      * @param version is string of android version
      * @return the parentage of given version.
      * */
-    fun getPercentageAppsRunningOnSpecificVersion(apps: List<App>, version:Double): Double =
-        calculatePercentage(apps.count{ it.requiresAndroid != null && it.requiresAndroid == version }, apps.size)
+    fun getPercentageAppsRunningOnSpecificVersion(apps: List<App>, version:Double): Double {
+        return calculatePercentage(apps.count{ it.requiresAndroid != null && it.requiresAndroid == version },
+                                    apps.size)
+    }
 
 
     /**
@@ -38,11 +47,14 @@ class Analyzer {
      * @return a percentage of given category from give list.
      * */
     fun getPercentageOfCategory(apps: List<App>,categoryName:String):Double {
-        return if (apps.isNotEmpty() && categoryName.isNotEmpty())
+        return if (apps.isNotEmpty() && categoryName.isNotEmpty()){
             calculatePercentage(
                 apps.count { it.category.contains(categoryName.trim(), true) },
                 apps.size)
-        else -1.0
+        }
+        else {
+            -1.0
+        }
     }
 
 
@@ -57,8 +69,9 @@ class Analyzer {
                 listOfAppName.add(it.appName)
             }
         }
-        if (listOfAppName.size == 0)
+        if (listOfAppName.size == 0) {
             return null
+        }
         return listOfAppName
     }
 
@@ -75,7 +88,8 @@ class Analyzer {
                 .take(size)
                 .toList()
         }
-        else{
+        else {
             null
         }
+    }
 }
