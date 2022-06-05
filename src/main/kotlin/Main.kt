@@ -3,9 +3,9 @@ import utilities.Constant
 import utilities.Converter
 
 fun main() {
-
-    val apps = DataParser(Constant.FILE_NAME).getAllApps()
-    val analyzer = Analyzer(Converter())
+    val converter=Converter()
+    val apps = DataParser(Constant.FILE_NAME,converter).getAllApps()
+    val analyzer = Analyzer(converter)
 
 
     println("1# How many apps were developed by Google in the dataset? "+
@@ -25,5 +25,7 @@ fun main() {
     println("--------------------------------------------")
     println("6# What are the top 10 installed apps.\n" +
             "${analyzer.topNAppInstall(apps,10)}")
+    println("7# What is the largest app size developed by Meta Platforms Inc.? \n" +
+            "${analyzer.getLargestAppsSizeByCompanyName(apps,"Meta Platforms Inc",1)}")
 
 }

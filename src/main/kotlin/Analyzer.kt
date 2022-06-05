@@ -76,7 +76,7 @@ class Analyzer (val converter:Converter) {
         if (apps.isEmpty() && companyName.isEmpty()) {
             return null
         }
-        val list = apps.filter { it.company.lowercase() == companyName.lowercase() }
+        val list = apps.filter { it.company.lowercase().contains(companyName.lowercase()) }
         return getLargestApp(list, numberOfApps)
     }
 }

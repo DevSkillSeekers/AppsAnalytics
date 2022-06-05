@@ -1,11 +1,13 @@
 package utilities
 
+import model.App
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.function.Executable
 import java.text.SimpleDateFormat
+import java.util.*
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class ConverterKtTest{
@@ -31,10 +33,24 @@ internal class ConverterKtTest{
         val dividend = 1
         val divisor = 4
         //when calculate percentage and divide by zero
+
         val result = converter.calculatePercentage(dividend,divisor)
         //then check the result
         assertEquals(25.0,result)
     }
+
+    @Test
+    fun should_ReturnApp_when_ParsingSeparatedString () {
+        // Given separated value string
+        val separatedValue = "Books,Amazon,Libraries & Demo,April 20 2022,21M,500000,1.0.0,4.4"
+        // When parsing string
+
+        val excepted = App("Books", "Amazon", "Libraries & Demo", Date("4/20/2022"), "21M", 500000, "1.0.0", 4.4)
+        val result = converter.convertStringWithCommaToApp(separatedValue)
+        // then
+        assertEquals(excepted, result)
+    }
+
 
 
 
