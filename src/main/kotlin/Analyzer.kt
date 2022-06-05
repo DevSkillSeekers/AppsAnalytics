@@ -6,8 +6,6 @@ import java.math.BigDecimal
 class Analyzer {
 
     /**
-     * @param apps is a list of app class
-     * @param companyName is string
      * @return number of apps with given companyName.
      * */
     fun findNumberOfAppsByCompanyName(apps: List<App>, companyName:String):Int {
@@ -18,7 +16,6 @@ class Analyzer {
     }
 
     /**
-     * @param apps is a list of App class
      * @return the oldest app in given list.
      * */
     fun findOldestApp(apps: List<App>): String? =
@@ -26,8 +23,6 @@ class Analyzer {
             apps.minByOrNull { it.updatedDate }!!.appName} else null
 
     /**
-     * @param apps is a list of app class
-     * @param version is string of android version
      * @return the parentage of given version.
      * */
     fun getPercentageAppsRunningOnSpecificVersion(apps: List<App>, version:Double): Double =
@@ -35,8 +30,6 @@ class Analyzer {
 
 
     /**
-     * @param apps is a list of app class
-     * @param categoryName is string of category that we need know
      * @return a percentage of given category from give list.
      * */
     fun getPercentageOfCategory(apps: List<App>,categoryName:String):Double {
@@ -65,16 +58,15 @@ class Analyzer {
     }
 
     /**
-     * @param apps is a list of app class
-     * @param size is Integer to give the user free to enter any number to return top install app depend on it
-     * @return a top ten app install from give list if the list is not null or empty
+     * @param rankNumber is Integer to give the user free to enter any number to return top installed apps depend on it
+     * @return a top N apps install from given list if the list is not null or empty
      * */
-    fun topNAppsInstall(apps: List<App>, size: Int): List<String>? =
-        if (apps.isNotEmpty() && size > 0)
+    fun topNAppsInstall(apps: List<App>, rankNumber: Int): List<String>? =
+        if (apps.isNotEmpty() && rankNumber > 0)
             apps.asSequence()
                 .sortedByDescending { dataSorted -> dataSorted.installs }
                 .map { data -> data.appName }
-                .take(size)
+                .take(rankNumber)
                 .toList()
         else null
 }

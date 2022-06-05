@@ -12,11 +12,10 @@ internal class AppParserTest{
 
     @Test
     fun should_ReturnEmptyList_When_FileNotFound(){
-        //Given filename that not found
+        //Giving filename that not found
         parser = AppParser("file")
-        //when open the file to parse
+        //open the file to parse
         val result = parser.parseFile()
-        //then check the result
         Assertions.assertEquals(mutableListOf<App>(),result)
     }
 
@@ -24,9 +23,8 @@ internal class AppParserTest{
     fun should_ReturnListOfApp_When_CorrectFileName(){
         //Given filename
         parser = AppParser(Constant.FILE_NAME)
-        //when open the file to parse
+        //open the file to parse
         val result = parser.parseFile()
-        //then check the result
         Assertions.assertEquals(4426,result.size)
     }
 }

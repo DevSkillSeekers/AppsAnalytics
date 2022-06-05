@@ -26,11 +26,10 @@ class CSVParser(private val fileName: String) : DataSource {
     }
 
     /**
-     * @param s is line of dataSet
      * @return object of app
      * */
-    private fun addApp(s: String): App {
-        val mList = s.split(",")
+    private fun addApp(dataSetLine: String): App {
+        val mList = dataSetLine.split(",")
         return App(
             appName = mList[Constant.ColumnIndex.APP_NAME],
             company = mList[Constant.ColumnIndex.COMPANY],
