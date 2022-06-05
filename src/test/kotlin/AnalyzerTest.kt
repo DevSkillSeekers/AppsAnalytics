@@ -222,14 +222,14 @@ internal class AnalyzerTest {
     fun should_ReturnNull_When_FindingTopTenInstalledApps_With_EmptyList() {
         //Giving empty list of apps
         apps
-        val topTenInstalledApps = analyzer.topNAppsInstall(apps = apps, size = 10)
+        val topTenInstalledApps = analyzer.topNAppsInstall(apps, 10)
         assertNull(topTenInstalledApps)
     }
 
     @Test// Test point #6
     fun should_ReturnTopThreeInstalledApps_When_HasValidList() {
         apps = appsList()
-        val topThreeInstalledApps = analyzer.topNAppsInstall(apps = apps, size = 2)
+        val topThreeInstalledApps = analyzer.topNAppsInstall(apps, 2)
         val predictableResult = listOf(
             "Google Files",
             "Books",
@@ -240,14 +240,14 @@ internal class AnalyzerTest {
     @Test// Test point #6
     fun should_ReturnNull_When_FindingTopThreeInstalledApps_With_ZeroNumberOfApps() {
         apps = appsList()
-        val topThreeInstalledApps = analyzer.topNAppsInstall(apps = apps, size = 0)
+        val topThreeInstalledApps = analyzer.topNAppsInstall(apps, 0)
         assertNull(topThreeInstalledApps)
     }
 
     @Test// Test point #6
     fun should_ReturnNull_WhenFindingTopThreeInstalledApps_With_NegativeValueEnteredForNumberOfApps() {
         apps = appsList()
-        val topThreeInstalledApps = analyzer.topNAppsInstall(apps = apps, size =  -1)
+        val topThreeInstalledApps = analyzer.topNAppsInstall(apps, -1)
         assertNull(topThreeInstalledApps)
     }
 
