@@ -330,7 +330,7 @@ internal class AnalyzerTest {
         //Given empty list of apps
         apps
         //when calculate the largest apps that developed by companyName
-        val result = analyzer.getLargestNAppSizeByCompanyName(apps,"google",1)
+        val result = analyzer.getLargestAppsSizeByCompanyName(apps,"google",1)
         //then check the result
         assertNull(result)
 
@@ -341,7 +341,7 @@ internal class AnalyzerTest {
         apps = setList()
         val numberOfApp = 2
         //when search  the largest app develop by companyName
-        val largesApps = analyzer.getLargestNAppSizeByCompanyName(apps,"Google",numberOfApp)
+        val largesApps = analyzer.getLargestAppsSizeByCompanyName(apps,"Google",numberOfApp)
         //then should return that order of top 4 largest app that compares the size with unit KB
         val expectedResultValue = listOf(apps[2],apps[3])
         assertEquals(expectedResultValue, largesApps)
@@ -351,7 +351,7 @@ internal class AnalyzerTest {
         //Given valid list of apps and empty category name
         apps = setList()
         //when calculate % empty company name
-        val result = analyzer.getLargestNAppSizeByCompanyName(apps, "",1)
+        val result = analyzer.getLargestAppsSizeByCompanyName(apps, "",1)
         //then check the result
         assertNull(result)
     }
@@ -361,7 +361,7 @@ internal class AnalyzerTest {
         //Given valid list of apps and lower case company name
         apps = setList()
         //when company is lower case
-        val largesApps = analyzer.getLargestNAppSizeByCompanyName(apps, "google",1)
+        val largesApps = analyzer.getLargestAppsSizeByCompanyName(apps, "google",1)
 
         //then check the result
         val expectedResultValue = listOf(apps[2])
@@ -373,7 +373,7 @@ internal class AnalyzerTest {
         //Given valid list of apps and upper case company name
         apps = setList()
         //when company is upper case
-        val largesApps = analyzer.getLargestNAppSizeByCompanyName(apps, "GOOGLE",1)
+        val largesApps = analyzer.getLargestAppsSizeByCompanyName(apps, "GOOGLE",1)
 
         //then check the result
         val expectedResultValue = listOf(apps[2])
