@@ -17,7 +17,7 @@ internal class AppParserTest{
         //Given filename that not found
         parser = DataParser("file")
         //when open the file to parse
-        val result = parser.parseFile()
+        val result = parser.getAllApps()
         //then check the result
         Assertions.assertEquals(mutableListOf<App>(),result)
     }
@@ -40,7 +40,7 @@ internal class AppParserTest{
         //Given filename
         parser = DataParser(Constant.FILE_NAME)
         //when open the file to parse
-        val result = parser.parseFile()
+        val result = parser.getAllApps()
         //then check the result
         Assertions.assertEquals(4426,result.size)
     }

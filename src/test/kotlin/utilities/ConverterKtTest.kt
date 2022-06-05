@@ -1,12 +1,19 @@
 package utilities
 
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.function.Executable
 import java.text.SimpleDateFormat
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class ConverterKtTest{
     lateinit var converter: Converter
+    @BeforeAll
+    fun setup() {
+        converter = Converter()
+    }
     @Test // Test point #3
     fun should_ReturnMinus1_When_CalculatePercentage_DivideOnZero() {
         //Given two number
@@ -29,35 +36,11 @@ internal class ConverterKtTest{
         assertEquals(25.0,result)
     }
 
-    @Test // Test point #3
-    fun should_Return_ConvertedDate_When_hasValidDate() {
-        //Given date with correct format MMM DD YYYY
-        val date = "May 15 2022"
-        //when convert the stringDate to Date
-        val result = converter.convertStringToDate(date)
-        //then check the result
-        assertEquals(SimpleDateFormat(Constant.DATE_FORMAT).parse("MAY-15-2022"), result)
-    }
 
-    @Test // Test point #3
-    fun should_Return_ConvertedDate_When_DayLessThen10() {
-        //Given date with different format day is not 05
-        val date = "May 5 2022"
-        //when convert StringDate to date
-        val result = converter.convertStringToDate(date)
-        //then check the result
-        assertEquals(SimpleDateFormat(Constant.DATE_FORMAT).parse("MAY-05-2022"), result)
-    }
 
-    @Test // Test point #3
-    fun should_ThrowException_When_WrongDateFormat() {
-        //Given date with different format
-        val date = "5 5 2022"
-        //when convert StringDate to date
-        val wrongFormatException = Executable { converter.convertStringToDate(date) }
-        //then check the result
-        assertThrows(Exception::class.java, wrongFormatException)
-    }
+
+
+
 
     @Test // Test point #3
     fun should_ReturnNull_When_Convert_NotValid_Version_ToDouble() {
@@ -79,35 +62,9 @@ internal class ConverterKtTest{
         assertEquals(4.4,result)
     }
 
-    @Test
-    fun should_ReturnByteNumber_When_GiveValidStringSize(){
-        //Given size
-        val size = "1.5M"
-        //when convert app size to byte
-        val result = converter.convertToByte(size)
-        //then check the result
-        val expectedResult = (1572864.0).toBigDecimal()
-        assertEquals(expectedResult,result)
-    }
 
-    @Test
-    fun should_ReturnByteNumber_When_GiveLowerCaseStringSize(){
-        //Given size
-        val size = "1.5m"
-        //when convert app size to byte
-        val result = converter.convertToByte(size)
-        //then check the result
-        val expectedResult = (1572864.0).toBigDecimal()
-        assertEquals(expectedResult,result)
-    }
 
-    @Test
-    fun should_ReturnNull_When_SizeNotContainUnit(){
-        //Given valid size without unit
-        val size = "1.5"
-        //when convert app size to byte
-        val result = converter.convertToByte(size)
-        //then check the result
-        assertNull(result)
-    }
+
+
+
 }
