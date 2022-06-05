@@ -1,3 +1,5 @@
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 fun String.convertStringToSizeUnit() =
     if (this == "Varies with device"){
@@ -12,3 +14,7 @@ fun String.convertStringToSizeUnit() =
     } else {
     0.0
     }
+
+fun String.convertStringToLocalDate(): LocalDate {
+    return LocalDate.parse(this, DateTimeFormatter.ofPattern("MMMM d yyyy"))
+}
