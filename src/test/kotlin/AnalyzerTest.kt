@@ -339,11 +339,11 @@ internal class AnalyzerTest {
     fun should_ReturnTopNLargestAppsByCompany_WhenGivenCorrectInput() {
         //given valid list and valid size
         apps = setList()
-        val numberOfApp = 1
+        val numberOfApp = 2
         //when search  the largest app develop by companyName
         val largesApps = analyzer.getLargestNAppSizeByCompanyName(apps,"Google",numberOfApp)
         //then should return that order of top 4 largest app that compares the size with unit KB
-        val expectedResultValue = listOf(apps[2])
+        val expectedResultValue = listOf(apps[2],apps[3])
         assertEquals(expectedResultValue, largesApps)
     }
     @Test
@@ -356,6 +356,7 @@ internal class AnalyzerTest {
         assertNull(result)
     }
     @Test
+
     fun should_ReturnTopNLargestAppsByCompany_When_CompanyIsLowerCase() {
         //Given valid list of apps and lower case company name
         apps = setList()
@@ -367,6 +368,7 @@ internal class AnalyzerTest {
         assertEquals(expectedResultValue, largesApps)
     }
     @Test
+
     fun should_ReturnTopNLargestAppsByCompany_When_CompanyIsUpperCase() {
         //Given valid list of apps and upper case company name
         apps = setList()
