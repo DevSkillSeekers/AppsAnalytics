@@ -1,7 +1,5 @@
 import model.App
 import utilities.calculatePercentage
-import utilities.convertToByte
-import java.math.BigDecimal
 
 class Analyzer {
 
@@ -82,8 +80,8 @@ class Analyzer {
      * @param size is Integer to give the user free to enter any number to return top install app depend on it
      * @return a top ten app install from give list if the list is not null or empty
      * */
-    fun topNAppsInstall(apps: List<App>, size: Int): List<String>? {
-        return if (apps.isNotEmpty() && size > 0){
+    fun topNAppsInstall(apps: List<App>, size: Int): List<String>? =
+        if (apps.isNotEmpty() && size > 0) {
             apps.asSequence()
                 .sortedByDescending { dataSorted -> dataSorted.installs }
                 .map { data -> data.appName }
@@ -94,5 +92,4 @@ class Analyzer {
             null
         }
     }
-
 }
