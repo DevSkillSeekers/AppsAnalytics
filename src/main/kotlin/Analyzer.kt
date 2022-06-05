@@ -73,10 +73,10 @@ class Analyzer (val converter:Converter) {
     }
 
     fun getLargestAppsSizeByCompanyName(apps: List<App>, companyName: String, numberOfApps: Int): List<App>? {
-        if (apps.isEmpty() && companyName.isEmpty()) {
+        if (apps.isEmpty() || companyName.isEmpty() || companyName.isBlank()) {
             return null
         }
-        val list = apps.filter { it.company.lowercase() == companyName.lowercase() }
+        val list = apps.filter { it.company.lowercase().contains(companyName.lowercase()) }
         return getLargestApp(list, numberOfApps)
     }
 }
