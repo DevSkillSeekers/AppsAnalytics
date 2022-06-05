@@ -2,7 +2,7 @@ package model
 
 import java.util.*
 
-class App (
+data class App (
     val appName:String,
     val company:String,
     val category:String,

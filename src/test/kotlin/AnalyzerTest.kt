@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
+import utilities.Converter
 import utilities.TestConstant
 import java.util.*
 
@@ -16,7 +17,7 @@ internal class AnalyzerTest {
 
     @BeforeAll
     fun setup() {
-        analyzer = Analyzer()
+        analyzer = Analyzer(Converter())
     }
 
     @BeforeEach
@@ -198,7 +199,7 @@ internal class AnalyzerTest {
         //when search for the oldest app
         val result = analyzer.findOldestApp(apps)
         //then check the result
-        assertEquals("Google Photo", result)
+        assertEquals(apps[2], result)
     }
 
     @Test // Test point #4
@@ -238,46 +239,46 @@ internal class AnalyzerTest {
     fun should_Return_TopLargestApps() {
         //given valid list and valid size
         apps = setList()
-        val valueReturnNumber = 4
+        val numberOfApp = 4
         //when search for top 4 largest app
-        val functionResultValue = analyzer.getLargestApp(apps,valueReturnNumber)
+        val largestFourApps = analyzer.getLargestApp(apps,numberOfApp)
         //then should return that order of top 4 largest app that compares the size with unit KB
-        val expectedResultValue = listOf("Google Photo", "AD","Books", "Google Files")
-        assertEquals(expectedResultValue, functionResultValue)
+        val expectedResultValue = listOf(apps[2], apps[1],apps[0],apps[3])
+        assertEquals(expectedResultValue, largestFourApps)
     }
 
     @Test// Test point #5
     fun should_ReturnNull_TopLargestApps_When_ListEmpty() {
         //given empty list
         apps
-        val valueReturnNumber= 4
+        val numberOfApp= 4
         //when search for top 4 largest app
-        val functionResultValue = analyzer.getLargestApp(apps,valueReturnNumber)
+        val largestFourApps  = analyzer.getLargestApp(apps,numberOfApp)
         //then should return -1
-        assertNull(functionResultValue)
+        assertNull(largestFourApps)
     }
 
     @Test// Test point #5
     fun should_ReturnNull_TopLargestApps_When_RankIsBiggerThanSize() {
         //given valid list and wrong rank that is bigger than size list
         apps = setList()
-        val valueReturnNumber= 5
+        val numberOfApp= 5
         //when search for top 10 largest app
-        val functionResultValue = analyzer.getLargestApp(apps,valueReturnNumber)
+        val largestTenApps  = analyzer.getLargestApp(apps,numberOfApp)
         //then should return -1
-        assertNull(functionResultValue)
+        assertNull(largestTenApps)
     }
 
     @Test// Test point #5
     fun should_Return_TopLargestApps_When_Size_LoweUpperCases() {
         //given valid list with Capital/Small size Units
         apps = setList(TestConstant.CHANGE_SIZE_UPPER_LOWER_CASE)
-        val valueReturnNumber= 2
+        val numberOfApp= 2
         //when search for top 2 largest app
-        val functionResultValue = analyzer.getLargestApp(apps,valueReturnNumber)
+        val largestTwoApps = analyzer.getLargestApp(apps,numberOfApp)
         //then should return
-        val expectedResultValue = listOf("Google Photo","Google Files")
-        assertEquals(expectedResultValue,functionResultValue)
+        val expectedResultValue = listOf(apps[2],apps[3])
+        assertEquals(expectedResultValue,largestTwoApps)
     }
 
     @Test// Test point #6
@@ -285,7 +286,7 @@ internal class AnalyzerTest {
         //Given empty list
         apps
         //when search for find top ten app Install
-        val result = analyzer.topTenAppInstall(apps = apps, size = 10)
+        val result = analyzer.topNAppInstall(apps = apps, numberOfApps = 10)
         //then should return null
         assertNull(result)
     }
@@ -295,11 +296,12 @@ internal class AnalyzerTest {
         //Given list have Valid data
         apps = setList()
         //when search for top 3 app install
-        val result = analyzer.topTenAppInstall(apps = apps, size = 2)
+        val result = analyzer.topNAppInstall(apps = apps, numberOfApps = 2)
         //then should return that order of top 10 install app
         val predictable = listOf(
-            "Google Files",
-            "Books",
+            apps.last(),
+            apps.first(),
+
         )
         assertEquals(predictable, result)
     }
@@ -309,7 +311,7 @@ internal class AnalyzerTest {
         //Given valid list of apps , Enter Number Of Apps want to Filter depend on it is equals to Zero
         apps = setList()
         //when search for top 3 app install
-        val result = analyzer.topTenAppInstall(apps = apps, size = 0)
+        val result = analyzer.topNAppInstall(apps = apps, numberOfApps = 0)
         //then should return Null
         assertNull(result)
     }
@@ -319,9 +321,63 @@ internal class AnalyzerTest {
         //Given valid list of apps , Enter Number Of Apps want to Filter depend on it Is Less than Zero
         apps = setList()
         //when search for top 3 app install
-        val result = analyzer.topTenAppInstall(apps = apps, size =  -1)
+        val result = analyzer.topNAppInstall(apps = apps, numberOfApps =  -1)
         //then should return Null
         assertNull(result)
+    }
+    @Test
+    fun should_ReturnNull_When_ListEmpty(){
+        //Given empty list of apps
+        apps
+        //when calculate the largest apps that developed by companyName
+        val result = analyzer.getLargestAppsSizeByCompanyName(apps,"google",1)
+        //then check the result
+        assertNull(result)
+
+    }
+    @Test
+    fun should_ReturnTopNLargestAppsByCompany_WhenGivenCorrectInput() {
+        //given valid list and valid size
+        apps = setList()
+        val numberOfApp = 2
+        //when search  the largest app develop by companyName
+        val largesApps = analyzer.getLargestAppsSizeByCompanyName(apps,"Google",numberOfApp)
+        //then should return that order of top 4 largest app that compares the size with unit KB
+        val expectedResultValue = listOf(apps[2],apps[3])
+        assertEquals(expectedResultValue, largesApps)
+    }
+    @Test
+    fun should_ReturnNull_When_CompanyIsEmpty() {
+        //Given valid list of apps and empty category name
+        apps = setList()
+        //when calculate % empty company name
+        val result = analyzer.getLargestAppsSizeByCompanyName(apps, "",1)
+        //then check the result
+        assertNull(result)
+    }
+    @Test
+
+    fun should_ReturnTopNLargestAppsByCompany_When_CompanyIsLowerCase() {
+        //Given valid list of apps and lower case company name
+        apps = setList()
+        //when company is lower case
+        val largesApps = analyzer.getLargestAppsSizeByCompanyName(apps, "google",1)
+
+        //then check the result
+        val expectedResultValue = listOf(apps[2])
+        assertEquals(expectedResultValue, largesApps)
+    }
+    @Test
+
+    fun should_ReturnTopNLargestAppsByCompany_When_CompanyIsUpperCase() {
+        //Given valid list of apps and upper case company name
+        apps = setList()
+        //when company is upper case
+        val largesApps = analyzer.getLargestAppsSizeByCompanyName(apps, "GOOGLE",1)
+
+        //then check the result
+        val expectedResultValue = listOf(apps[2])
+        assertEquals(expectedResultValue, largesApps)
     }
 
 }

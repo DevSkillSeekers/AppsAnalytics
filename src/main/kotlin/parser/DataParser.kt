@@ -1,17 +1,15 @@
 package parser
 
+import Interface.DataSource
 import model.App
-import utilities.Constant
-import utilities.convertStringToDate
-import utilities.convertToDouble
+import utilities.*
+
 import java.io.File
 
-class AppParser (private val fileName: String){
+class DataParser(private val fileName: String): DataSource {
 
-    /**
-     * @return list of apps after parsed from DataSet without repetition
-     * */
-    fun parseFile(): List<App> {
+    override
+    fun getAllApps(): List<App> {
         val appList = mutableListOf<App>()
         File(fileName).apply {
             if (this.exists()) {
@@ -20,24 +18,21 @@ class AppParser (private val fileName: String){
                 }
             }
         }
-        return appList.distinctBy { Pair(it.appName, it.company)}
+        return appList.distinctBy { Pair(it.appName, it.company) }
     }
 
-    /**
-     * @param s is line of dataSet
-     * @return object of app
-     * */
-    private fun addApp(s: String): App {
+     fun addApp(s: String): App {
         val mList = s.split(",")
+        val converter = Converter()
         return App(
             appName = mList[Constant.ColumnIndex.APP_NAME],
             company = mList[Constant.ColumnIndex.COMPANY],
             category = mList[Constant.ColumnIndex.CATEGORY],
-            updatedDate = convertStringToDate(mList[Constant.ColumnIndex.UPDATE_DATE]),
+            updatedDate = mList[Constant.ColumnIndex.UPDATE_DATE].convertToDate(),
             size = mList[Constant.ColumnIndex.SIZE],
             installs = mList[Constant.ColumnIndex.INSTALLS].toLong(),
             currentVersion = mList[Constant.ColumnIndex.CURRENT_VERSION],
-            requiresAndroid = convertToDouble(mList[Constant.ColumnIndex.REQUIRED_ANDROID])
+            requiresAndroid = converter.convertToDouble(mList[Constant.ColumnIndex.REQUIRED_ANDROID])
         )
     }
 }

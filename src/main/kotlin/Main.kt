@@ -1,10 +1,12 @@
-import parser.AppParser
+import parser.DataParser
 import utilities.Constant
+import utilities.Converter
 
 fun main() {
 
-    val apps = AppParser(Constant.FILE_NAME).parseFile()
-    val analyzer = Analyzer()
+    val apps = DataParser(Constant.FILE_NAME).getAllApps()
+    val analyzer = Analyzer(Converter())
+
 
     println("1# How many apps were developed by Google in the dataset? "+
             "\n${analyzer.findNumberOfAppsByCompanyName(apps,"Google")}")
@@ -13,7 +15,7 @@ fun main() {
             "\n%${analyzer.getPercentageOfCategory(apps,"Medical")}")
     println("--------------------------------------------")
     println("3# What is the oldest app in the dataset." +
-            "\n${analyzer.findOldestApp(apps)}")
+            "\n${analyzer.findOldestApp(apps)?.appName}")
     println("--------------------------------------------")
     println("4# What is the percentage of apps running on android 9 and up only?"+
             "\n%${analyzer.getPercentageAppsRunningOnSpecificVersion(apps,9.0)}")
@@ -22,6 +24,6 @@ fun main() {
             "${analyzer.getLargestApp(apps,10)}")
     println("--------------------------------------------")
     println("6# What are the top 10 installed apps.\n" +
-            "${analyzer.topTenAppInstall(apps,10)}")
+            "${analyzer.topNAppInstall(apps,10)}")
 
 }
