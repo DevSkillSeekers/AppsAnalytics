@@ -23,304 +23,232 @@ internal class AnalyzerTest {
         apps=  mutableListOf()
     }
 
-    private fun setList(testSet:Int =0):MutableList<App>{
+    private fun appsList(testSet:Int =0):MutableList<App>{
         val  appList=  mutableListOf<App>()
         when(testSet){
-           TestConstant.CHANGE_SIZE_UPPER_LOWER_CASE ->{
-               appList.add(App("Books", "Amazon", "Libraries & Demo", Date("5/1/2000"), "21M", 500000, 4.4))
-               appList.add( App("AD", "Amazon", "Libraries & Demo", Date("1/1/2020"), "30k", 30, 9.0))
-               appList.add(App("Google Photo", "Google ", "Libraries & Demo", Date("2/1/2000"), "5.5g", 500, 6.0))
-               appList.add(App("Google Files", "Google", "Medical", Date("1/1/2019"), "5g", 1000000, 9.0))
-           }
-           else ->{
-               appList.add(App("Books", "Amazon", "Libraries & Demo", Date("5/1/2000"), "21M", 500000, 4.4))
-               appList.add(App("AD", "Amazon", "Libraries & Demo", Date("1/1/2020"), "30M", 30, 9.0))
-               appList.add(App("Google Photo", "Google", "Libraries & Demo", Date("2/1/2000"), "50M", 500, 6.0))
-               appList.add(App("Google Files", "Google", "Medical", Date("1/1/2019"), "5M", 1000000, 9.0))
-           }
-       }
+            TestConstant.CHANGE_SIZE_UPPER_LOWER_CASE ->{
+                appList.add(App("Books", "Amazon", "Libraries & Demo", Date("5/1/2000"), "21M", 500000, "1.0.0", 4.4))
+                appList.add( App("AD", "Amazon", "Libraries & Demo", Date("1/1/2020"), "30k", 30, "1.0.0", 9.0))
+                appList.add(App("Google Photo", "Google ", "Libraries & Demo", Date("2/1/2000"), "5.5g", 500, "1.0.0", 6.0))
+                appList.add(App("Google Files", "Google", "Medical", Date("1/1/2019"), "5g", 1000000, "1.0.0", 9.0))
+            }
+            else ->{
+                appList.add(App("Books", "Amazon", "Libraries & Demo", Date("5/1/2000"), "21M", 500000, "1.0.0", 4.4))
+                appList.add(App("AD", "Amazon", "Libraries & Demo", Date("1/1/2020"), "30M", 30, "1.0.0", 9.0))
+                appList.add(App("Google Photo", "Google", "Libraries & Demo", Date("2/1/2000"), "50M", 500, "1.0.0", 6.0))
+                appList.add(App("Google Files", "Google", "Medical", Date("1/1/2019"), "5M", 1000000, "1.0.0", 9.0))
+            }
+        }
         return appList
     }
 
     @Test //Test Point #1
     fun should_ReturnNumberOfAppsDevelopedByACompany_When_CompanyNameEqualsToGoogle(){
-        //Given list of apps
-        apps = setList()
-        ////when calculate number of apps that developed by companyName
-        val result = analyzer.findNumberOfAppsByCompanyName(apps,"google")
-        //then check the result
-        assertEquals(2, result)
+        apps = appsList()
+        val numberOfApps = analyzer.findNumberOfAppsByCompanyName(apps,"google")
+        assertEquals(2, numberOfApps)
     }
 
     @Test //Test Point #1
     fun should_ReturnNumberOfAppsDevelopedByACompany_When_CompanyNameContainsSpaceAtTheEnd(){
-        //Given list of apps
-        apps = setList()
-        ////when calculate number of apps that developed by companyName contains space at the end
-        val result = analyzer.findNumberOfAppsByCompanyName(apps,"google ")
-        //then check the result
-        assertEquals(2, result)
+        apps = appsList()
+        val numberOfApps = analyzer.findNumberOfAppsByCompanyName(apps,"google ")
+        assertEquals(2, numberOfApps)
     }
 
     @Test //Test Point #1
-    fun should_ReturnNumberOfAppsDevelopedByACompany_When_CompanyNameContainsSpace(){
-        //Given list of apps
-        apps = setList()
-        ////when calculate number of apps that developed by companyName contains space
-        val result = analyzer.findNumberOfAppsByCompanyName(apps,"goo gle")
-        //then check the result
-        assertEquals(0, result)
+    fun should_ReturnNumberOfAppsDevelopedByACompany_When_CompanyNameContainsSpaceInTheMiddle(){
+        apps = appsList()
+        val numberOfApps = analyzer.findNumberOfAppsByCompanyName(apps,"goo gle")
+        assertEquals(0, numberOfApps)
     }
 
     @Test //Test Point #1
-    fun should_ReturnZero_When_CompanyNameNotFound(){
-        //Given list of apps
-        apps = setList()
-        ////when calculate number of apps that developed by companyName doesn't exist
-        val result = analyzer.findNumberOfAppsByCompanyName(apps,"sfkjnc")
-        //then check the result
-        assertEquals(0, result)
+    fun should_ReturnZero_When_CalculatingNumberOfAppsDevelopedByACompany_With_NonExistingCompanyName(){
+        apps = appsList()
+        val numberOfApps = analyzer.findNumberOfAppsByCompanyName(apps,"sfkjnc")
+        assertEquals(0, numberOfApps)
     }
 
     @Test //Test Point #1
-    fun should_ReturnMinus1_When_CompanyNameEmpty(){
-        //Given list of apps
-        apps = setList()
-        //when calculate number of apps that developed by companyName is empty
-        val result = analyzer.findNumberOfAppsByCompanyName(apps,"")
-        //then check the result
-        assertEquals(-1, result)
+    fun should_ReturnMinus1_When_CalculatingNumberOfAppsDevelopedByACompany_With_EmptyCompanyName(){
+        apps = appsList()
+        val numberOfApps = analyzer.findNumberOfAppsByCompanyName(apps,"")
+        assertEquals(-1, numberOfApps)
 
     }
 
     @Test //Test Point #1
     fun should_ReturnNumberOfAppsDevelopedByACompany_When_CompanyNameInUpperCase(){
-        //Given list of apps
-        apps = setList()
-        //when calculate number of apps that developed by companyName in upper case
-        val result = analyzer.findNumberOfAppsByCompanyName(apps,"GOOGLE")
-        //then check the result
-        assertEquals(2, result)
+        apps = appsList()
+        val numberOfApps = analyzer.findNumberOfAppsByCompanyName(apps,"GOOGLE")
+        assertEquals(2, numberOfApps)
 
     }
 
     @Test //Test Point #1
-    fun should_ReturnMinus1_When_ListEmpty(){
-        //Given empty list of apps
+    fun should_ReturnMinus1_When_CalculatingNumberOfAppsDevelopedByACompany_With_EmptyList(){
+        //Giving empty list of apps
         apps
-        //when calculate number of apps that developed by companyName
         val result = analyzer.findNumberOfAppsByCompanyName(apps,"google")
-        //then check the result
         assertEquals(-1, result)
 
     }
 
     @Test // Test Point #2
-    fun should_ReturnPercentageOfGivenCategory_When_ValidList() {
-        //Given valid list of apps and valid categoryName
-        apps = setList()
+    fun should_ReturnPercentageOfMedicalApps_With_GivenCategoryAndValidList() {
+        apps = appsList()
         val categoryName = "Medical"
-        //when calculate % of medical apps in list
-        val result = analyzer.getPercentageOfCategory(apps, categoryName)
-        //then check the result
-        assertEquals(25.0, result)
+        val percentageOfMedicalApps = analyzer.getPercentageOfCategory(apps, categoryName)
+        assertEquals(25.0, percentageOfMedicalApps)
     }
 
     @Test // Test Point #2
-    fun should_ReturnPercentageOfGivenCategory_When_CategoryWithUpperOrLowerCase() {
-        //Given list of apps and upperCase categoryName
-        apps = setList()
+    fun should_ReturnPercentageOfMedicalApps_When_GivenCategoryWithUpperOrLowerCase() {
+        apps = appsList()
         val categoryName = "MEDICAL"
-        //when calculate % of medical apps in list
-        val result = analyzer.getPercentageOfCategory(apps,categoryName)
-        //then check the result
-        assertEquals(25.0, result)
+        val percentageOfMedicalApps = analyzer.getPercentageOfCategory(apps,categoryName)
+        assertEquals(25.0, percentageOfMedicalApps)
     }
 
     @Test // Test Point #2
-    fun should_ReturnPercentageOfGivenCategory_When_CategoryWithSpace() {
-        //Given valid list of apps and category name with space
-        apps = setList()
+    fun should_ReturnPercentageOfMedicalApps_When_GivenCategoryWithSpace() {
+        apps = appsList()
         val categoryName = " MEDICAL "
-        //when calculate % of medical apps in list
-        val result = analyzer.getPercentageOfCategory(apps, categoryName)
-        //then check the result
-        assertEquals(25.0, result)
+        val percentageOfMedicalApps = analyzer.getPercentageOfCategory(apps, categoryName)
+        assertEquals(25.0, percentageOfMedicalApps)
     }
 
     @Test // Test Point #2
-    fun should_ReturnMinus1_When_CalculatePercentageOfCategoryWithEmptyList() {
-        //Given empty list of apps and valid category
+    fun should_ReturnMinus1_When_CalculatingPercentageOfMedicalApps_With_GivenCategoryAndEmptyList() {
+        //Giving empty list of apps
         apps
         val categoryName = "Medical"
-        //when calculate % of medical apps in emptyList
-        val result = analyzer.getPercentageOfCategory(apps,categoryName)
-        //then check the result
-        assertEquals(-1.0, result)
+        val percentageOfMedicalApps = analyzer.getPercentageOfCategory(apps,categoryName)
+        assertEquals(-1.0, percentageOfMedicalApps)
     }
 
     @Test // Test Point #2
-    fun should_ReturnZero_When_CategoryNotFound() {
-        //Given valid list of apps and category name not in list
-        apps = setList()
+    fun should_ReturnZero_When_CalculatingPercentageOfMedicalApps_With_NonExistingCategory() {
+        apps = appsList()
         val category = "Shopping"
-        //when calculate % of category that not in list
-        val result = analyzer.getPercentageOfCategory(apps,category)
-        //then check the result
-        assertEquals(0.0, result)
+        val percentageOfMedicalApps = analyzer.getPercentageOfCategory(apps,category)
+        assertEquals(0.0, percentageOfMedicalApps)
     }
 
     @Test // Test Point #2
-    fun should_ReturnMinus1_When_CategoryIsEmpty() {
-        //Given valid list of apps and empty category name
-        apps = setList()
-        //when calculate % empty category name
-        val result = analyzer.getPercentageOfCategory(apps, "")
-        //then check the result
-        assertEquals(-1.0, result)
+    fun should_ReturnMinus1_When_CalculatingPercentageOfMedicalApps_With_EmptyCategoryName() {
+        apps = appsList()
+        val percentageOfMedicalApps = analyzer.getPercentageOfCategory(apps, "")
+        assertEquals(-1.0, percentageOfMedicalApps)
     }
 
     @Test // Test point #3
-    fun should_ReturnNull_When_FindOldestAppForEmptyList() {
-        //Given emptyList
+    fun should_ReturnNull_When_FindingOldestApp_With_GivenEmptyList() {
+        //Giving empty list of apps
         apps
-        //when search for the oldest app
-        val result = analyzer.findOldestApp(apps)
-        //then check the result
-        assertNull(result)
+        val oldestApp = analyzer.findOldestApp(apps)
+        assertNull(oldestApp)
     }
 
     @Test // Test point #3
-    fun should_Return_TheOldestApp_whenHasValidList() {
-        //Given valid list
-        apps = setList()
-        //when search for the oldest app
-        val result = analyzer.findOldestApp(apps)
-        //then check the result
-        assertEquals("Google Photo", result)
+    fun should_ReturnOldestApp_when_HasValidList() {
+        apps = appsList()
+        val oldestApp = analyzer.findOldestApp(apps)
+        assertEquals("Google Photo", oldestApp)
     }
 
     @Test // Test point #4
-    fun should_ReturnMinus1_When_CalculateRunningOnSpecificVersion_WithEmptyAppList() {
-        //Given emptyList of apps and valid version
+    fun should_ReturnMinus1_When_CalculatingPercentageOfAppsRunningOnSpecificVersion_With_EmptyList() {
+        //Giving empty list of apps
         apps
         val version = 9.0
-        //when calculate percentage of empty list
-        val result = analyzer.getPercentageAppsRunningOnSpecificVersion(apps ,version)
-        //then check the result
-        assertEquals(-1.0,result)
+        val percentageOfApps = analyzer.getPercentageAppsRunningOnSpecificVersion(apps ,version)
+        assertEquals(-1.0,percentageOfApps)
     }
 
     @Test // Test point #4
-    fun should_Return_PercentageAppsRunningOnSpecificVersion_when_HasValidList() {
-        //Given valid list of apps and valid version
-        apps = setList()
+    fun should_ReturnPercentageOfAppsRunningOnSpecificVersion_When_HasValidList() {
+        apps = appsList()
         val version = 9.0
-        //when calculate percentage
-        val result = analyzer.getPercentageAppsRunningOnSpecificVersion(apps,version)
-        //then check the result
-        assertEquals(50.0, result)
+        val percentageOfApps = analyzer.getPercentageAppsRunningOnSpecificVersion(apps,version)
+        assertEquals(50.0, percentageOfApps)
     }
 
     @Test // Test point #4
-    fun should_ReturnZero_when_NoAppRunningOnSpecificVersion() {
-        //Given valid list of apps and valid version
-        apps = setList()
+    fun shouldReturnZero_When_NoAppRunningOnSpecificVersion() {
+        apps = appsList()
         val version = 10.0
-        //when calculate percentage
-        val result = analyzer.getPercentageAppsRunningOnSpecificVersion(apps,version)
-        //then check the result
-        assertEquals(0.0, result)
+        val percentageOfApps = analyzer.getPercentageAppsRunningOnSpecificVersion(apps,version)
+        assertEquals(0.0, percentageOfApps)
     }
 
     @Test// Test point #5
-    fun should_Return_TopLargestApps() {
-        //given valid list and valid size
-        apps = setList()
-        val valueReturnNumber = 4
-        //when search for top 4 largest app
-        val functionResultValue = analyzer.getLargestApp(apps,valueReturnNumber)
-        //then should return that order of top 4 largest app that compares the size with unit KB
+    fun should_ReturnTopFourLargestApps() {
+        apps = appsList()
+        val rankNumber = 4
+        val largestFourApps = analyzer.getLargestApp(apps,rankNumber)
         val expectedResultValue = listOf("Google Photo", "AD","Books", "Google Files")
-        assertEquals(expectedResultValue, functionResultValue)
+        assertEquals(expectedResultValue, largestFourApps)
     }
 
     @Test// Test point #5
-    fun should_ReturnNull_TopLargestApps_When_ListEmpty() {
-        //given empty list
+    fun should_ReturnNull_When_FindingTopFourLargestApps_With_EmptyList() {
+        //Giving empty list of apps
         apps
-        val valueReturnNumber= 4
-        //when search for top 4 largest app
-        val functionResultValue = analyzer.getLargestApp(apps,valueReturnNumber)
-        //then should return -1
-        assertNull(functionResultValue)
+        val rankNumber= 4
+        val largestFourApps = analyzer.getLargestApp(apps,rankNumber)
+        assertNull(largestFourApps)
     }
 
     @Test// Test point #5
-    fun should_ReturnNull_TopLargestApps_When_RankIsBiggerThanSize() {
-        //given valid list and wrong rank that is bigger than size list
-        apps = setList()
-        val valueReturnNumber= 5
-        //when search for top 10 largest app
-        val functionResultValue = analyzer.getLargestApp(apps,valueReturnNumber)
-        //then should return -1
-        assertNull(functionResultValue)
+    fun should_ReturnNull_When_FindingTopFourLargestApps_With_RankBiggerThanSize() {
+        apps = appsList()
+        val rankNumber= 5
+        val largestFourApps = analyzer.getLargestApp(apps,rankNumber)
+        assertNull(largestFourApps)
     }
 
     @Test// Test point #5
-    fun should_Return_TopLargestApps_When_Size_LoweUpperCases() {
-        //given valid list with Capital/Small size Units
-        apps = setList(TestConstant.CHANGE_SIZE_UPPER_LOWER_CASE)
-        val valueReturnNumber= 2
-        //when search for top 2 largest app
-        val functionResultValue = analyzer.getLargestApp(apps,valueReturnNumber)
-        //then should return
+    fun should_Return_TopTwoLargestApps_When_SizeIsLowerOrUpperCase() {
+        apps = appsList(TestConstant.CHANGE_SIZE_UPPER_LOWER_CASE)
+        val rankNumber= 2
+        val largestTwoApps = analyzer.getLargestApp(apps,rankNumber)
         val expectedResultValue = listOf("Google Photo","Google Files")
-        assertEquals(expectedResultValue,functionResultValue)
+        assertEquals(expectedResultValue,largestTwoApps)
     }
 
     @Test// Test point #6
-    fun should_ReturnNull_When_TheListIsEmpty() {
-        //Given empty list
+    fun should_ReturnNull_When_FindingTopTenInstalledApps_With_EmptyList() {
+        //Giving empty list of apps
         apps
-        //when search for find top ten app Install
-        val result = analyzer.topNAppsInstall(apps = apps, size = 10)
-        //then should return null
-        assertNull(result)
+        val topTenInstalledApps = analyzer.topNAppsInstall(apps = apps, size = 10)
+        assertNull(topTenInstalledApps)
     }
 
     @Test// Test point #6
-    fun should_ReturnTopAppInstall_WhenHasValidData() {
-        //Given list have Valid data
-        apps = setList()
-        //when search for top 3 app install
-        val result = analyzer.topNAppsInstall(apps = apps, size = 2)
-        //then should return that order of top 10 install app
-        val predictable = listOf(
+    fun should_ReturnTopThreeInstalledApps_When_HasValidList() {
+        apps = appsList()
+        val topThreeInstalledApps = analyzer.topNAppsInstall(apps = apps, size = 2)
+        val predictableResult = listOf(
             "Google Files",
             "Books",
         )
-        assertEquals(predictable, result)
+        assertEquals(predictableResult, topThreeInstalledApps)
     }
 
     @Test// Test point #6
-    fun should_ReturnNullWhenTheEnterNumberOfAppsIsZero() {
-        //Given valid list of apps , Enter Number Of Apps want to Filter depend on it is equals to Zero
-        apps = setList()
-        //when search for top 3 app install
-        val result = analyzer.topNAppsInstall(apps = apps, size = 0)
-        //then should return Null
-        assertNull(result)
+    fun should_ReturnNull_When_FindingTopThreeInstalledApps_With_ZeroNumberOfApps() {
+        apps = appsList()
+        val topThreeInstalledApps = analyzer.topNAppsInstall(apps = apps, size = 0)
+        assertNull(topThreeInstalledApps)
     }
 
     @Test// Test point #6
-    fun should_ReturnNullWhenTheEnterNumberOfAppsIsLessThenZero() {
-        //Given valid list of apps , Enter Number Of Apps want to Filter depend on it Is Less than Zero
-        apps = setList()
-        //when search for top 3 app install
-        val result = analyzer.topNAppsInstall(apps = apps, size =  -1)
-        //then should return Null
-        assertNull(result)
+    fun should_ReturnNull_WhenFindingTopThreeInstalledApps_With_NegativeValueEnteredForNumberOfApps() {
+        apps = appsList()
+        val topThreeInstalledApps = analyzer.topNAppsInstall(apps = apps, size =  -1)
+        assertNull(topThreeInstalledApps)
     }
 
 }
