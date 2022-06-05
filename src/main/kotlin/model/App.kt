@@ -1,12 +1,12 @@
 package model
 
-import java.util.*
+import java.time.LocalDate
 
 data class App(
     val appName: String,
     val company: String,
     val category: String,
-    val updatedDate: Date,
+    val updatedDate: LocalDate,
     val size: Double,
     val installs: Long,
     val requiresAndroid: Double?

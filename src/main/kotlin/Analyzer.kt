@@ -6,11 +6,10 @@ class Analyzer {
     /**
      * @return number of apps with given companyName.
      * */
-    fun findNumberOfAppsByCompanyName(apps: List<App>, companyName:String):Int {
-        return if (apps.isNotEmpty() && companyName.isNotEmpty()){
+    fun findNumberOfAppsByCompanyName(apps: List<App>, companyName: String): Int {
+        return if (apps.isNotEmpty() && companyName.isNotEmpty()) {
             return apps.count { it.company.contains(companyName.trim(), true) }
-        }
-        else {
+        } else {
             -1
         }
     }
@@ -30,28 +29,30 @@ class Analyzer {
     /**
      * @return the parentage of given version.
      * */
-    fun getPercentageAppsRunningOnSpecificVersion(apps: List<App>, version:Double): Double {
-        return calculatePercentage(apps.count{ it.requiresAndroid != null && it.requiresAndroid == version },
-                                    apps.size)
+    fun getPercentageAppsRunningOnSpecificVersion(apps: List<App>, version: Double): Double {
+        return calculatePercentage(
+            apps.count { it.requiresAndroid != null && it.requiresAndroid == version },
+            apps.size
+        )
     }
 
 
     /**
      * @return a percentage of given category from give list.
      * */
-    fun getPercentageOfCategory(apps: List<App>,categoryName:String):Double {
-        return if (apps.isNotEmpty() && categoryName.isNotEmpty()){
+    fun getPercentageOfCategory(apps: List<App>, categoryName: String): Double {
+        return if (apps.isNotEmpty() && categoryName.isNotEmpty()) {
             calculatePercentage(
                 apps.count { it.category.contains(categoryName.trim(), true) },
-                apps.size)
-        }
-        else {
+                apps.size
+            )
+        } else {
             -1.0
         }
     }
 
 
-    fun getLargestApp(listOfGooglePlayApp: List<App>,size:Int):List<String>?{
+    fun getLargestApp(listOfGooglePlayApp: List<App>, size: Int): List<String>? {
         val listOfAppName: MutableList<String> = mutableListOf()
         if (listOfGooglePlayApp.size > size) {
             listOfGooglePlayApp.sortedByDescending { it.size }.subList(0, size).forEach {
@@ -73,15 +74,13 @@ class Analyzer {
      * @return a top N apps install from given list if the list is not null or empty
      * */
     fun topNAppsInstall(apps: List<App>, rankNumber: Int): List<String>? =
-        if (apps.isNotEmpty() && rankNumber > 0)
+        if (apps.isNotEmpty() && rankNumber > 0) {
             apps.asSequence()
                 .sortedByDescending { dataSorted -> dataSorted.installs }
                 .map { data -> data.appName }
                 .take(rankNumber)
                 .toList()
-        }
-        else {
+        } else {
             null
         }
-    }
 }
