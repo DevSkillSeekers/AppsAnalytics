@@ -1,10 +1,13 @@
 import parser.CSVParser
+import parser.JSONParser
 import utilities.Constant
 
 fun main() {
 
     val apps = CSVParser(Constant.FILE_NAME).getAllApps()
     val analyzer = Analyzer()
+
+    val appsJson = JSONParser(Constant.FILE_NAME_JSON).getAllApps()
 
     println(
         "1# How many apps were developed by Google in the dataset? " +
@@ -34,6 +37,12 @@ fun main() {
     println(
         "6# What are the top 10 installed apps.\n" +
             "${analyzer.topNAppsInstall(apps,10)}"
+    )
+
+    println("--------------------------------------------  List of apps in JSON format")
+    println(
+        "7# List of JSON \n" +
+            "$appsJson"
     )
 
 }

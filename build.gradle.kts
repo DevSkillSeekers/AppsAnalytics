@@ -1,3 +1,4 @@
+import org.gradle.internal.impldep.com.fasterxml.jackson.core.JsonPointer.compile
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -14,6 +15,7 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+    implementation ("org.json:json:20220320")
 }
 
 tasks.test {
@@ -27,3 +29,5 @@ tasks.withType<KotlinCompile> {
 application {
     mainClass.set("MainKt")
 }
+
+// compile("org.json:json:20220320")

@@ -12,6 +12,6 @@ data class App(
     val updatedDate: LocalDate,
     val size: Double,
     val installs: Long,
-    val currentVersion: Int?,
+    val currentVersion: Any?,
     val requiresAndroid: Double?
 )
