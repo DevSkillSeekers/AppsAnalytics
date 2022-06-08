@@ -12,7 +12,20 @@ object Constant {
         const val REQUIRED_ANDROID = 7
     }
 
+    object ColumnIndexConstant {
+        const val APP_NAME = "appName"
+        const val COMPANY = "company"
+        const val CATEGORY = "category"
+        const val UPDATE_DATE = "updated"
+        const val SIZE = "size"
+        const val INSTALLS = "installs"
+        const val CURRENT_VERSION = "currentVersion"
+        const val REQUIRED_ANDROID = "requiresAndroid"
+    }
+
+
     const val FILE_NAME = "google_play.csv"
+    const val FILE_NAME_JSON = "google_play.json"
     const val DATE_FORMAT = "MMM-dd-yyyy"
     const val KILO_BYTE = 1024.0
 }
