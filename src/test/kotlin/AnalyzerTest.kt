@@ -5,8 +5,10 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
+import utilities.Converter
 import java.util.*
 
+@Suppress("DEPRECATION")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class AnalyzerTest {
 
@@ -15,7 +17,7 @@ internal class AnalyzerTest {
 
     @BeforeAll
     fun setup() {
-        analyzer = Analyzer()
+        analyzer = Analyzer(Converter())
     }
 
     @BeforeEach
@@ -27,16 +29,16 @@ internal class AnalyzerTest {
         val  appList=  mutableListOf<App>()
         when(testSet){
             TestConstant.CHANGE_SIZE_UPPER_LOWER_CASE ->{
-                appList.add(App("Books", "Amazon", "Libraries & Demo", Date("5/1/2000"), "21M".convertStringToSizeUnit(), 500000, 4.4))
-                appList.add( App("AD", "Amazon", "Libraries & Demo", Date("1/1/2020"), "30k".convertStringToSizeUnit(), 30, 9.0))
-                appList.add(App("Google Photo", "Google ", "Libraries & Demo", Date("2/1/2000"), "5.5g".convertStringToSizeUnit(), 500, 6.0))
-                appList.add(App("Google Files", "Google", "Medical", Date("1/1/2019"), "5g".convertStringToSizeUnit(), 1000000, 9.0))
+                appList.add(App("Books", "Amazon", "Libraries & Demo", Date("5/1/2000"), "21M".convertStringToSizeUnit(), 500000, 4.4,7.0))
+                appList.add( App("AD", "Amazon", "Libraries & Demo", Date("1/1/2020"), "30k".convertStringToSizeUnit(), 30, 9.0,8.0))
+                appList.add(App("Google Photo", "Google ", "Libraries & Demo", Date("2/1/2000"), "5.5g".convertStringToSizeUnit(), 500, 6.0,9.0))
+                appList.add(App("Google Files", "Google", "Medical", Date("1/1/2019"), "5g".convertStringToSizeUnit(), 1000000, 9.0,7.0))
             }
             else ->{
-                appList.add(App("Books", "Amazon", "Libraries & Demo", Date("5/1/2000"), "21M".convertStringToSizeUnit(), 500000, 4.4))
-                appList.add(App("AD", "Amazon", "Libraries & Demo", Date("1/1/2020"), "30M".convertStringToSizeUnit(), 30, 9.0))
-                appList.add(App("Google Photo", "Google", "Libraries & Demo", Date("2/1/2000"), "50M".convertStringToSizeUnit(), 500, 6.0))
-                appList.add(App("Google Files", "Google", "Medical", Date("1/1/2019"), "5M".convertStringToSizeUnit(), 1000000, 9.0))
+                appList.add(App("Books", "Amazon", "Libraries & Demo", Date("5/1/2000"), "21M".convertStringToSizeUnit(), 500000, 4.4,8.0))
+                appList.add(App("AD", "Amazon", "Libraries & Demo", Date("1/1/2020"), "30M".convertStringToSizeUnit(), 30, 9.0,8.0))
+                appList.add(App("Google Photo", "Google", "Libraries & Demo", Date("2/1/2000"), "50M".convertStringToSizeUnit(), 500, 6.0,4.4))
+                appList.add(App("Google Files", "Google", "Medical", Date("1/1/2019"), "5M".convertStringToSizeUnit(), 1000000, 9.0,6.0))
             }
         }
         return appList

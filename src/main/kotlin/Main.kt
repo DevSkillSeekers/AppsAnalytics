@@ -1,13 +1,14 @@
 import parser.CSVParser
 import parser.JSONParser
 import utilities.Constant
+import utilities.Converter
 
 fun main() {
 
-    val apps = CSVParser(Constant.FILE_NAME).getAllApps()
-    val analyzer = Analyzer()
+    val apps = CSVParser(Constant.FILE_NAME,Converter()).getAllApps()
+    val analyzer = Analyzer(Converter())
 
-    val appsJson = JSONParser(Constant.FILE_NAME_JSON).getAllApps()
+    val appsJson = JSONParser(Constant.FILE_NAME_JSON,Converter()).getAllApps()
 
     println(
         "1# How many apps were developed by Google in the dataset? " +
