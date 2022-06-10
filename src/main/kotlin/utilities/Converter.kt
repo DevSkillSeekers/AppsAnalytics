@@ -31,18 +31,18 @@ class Converter {
 
     fun convertToByte(size:String): BigDecimal?{
         var result = ""
-        for (character in size){
-            result += if (character.isDigit()) {
-                character
+        size.forEach {
+            result += if (it.isDigit()) {
+                it
             }
-            else if ( character == '.' && !result.contains(".")) {
-                character
+            else if ( it == '.' && !result.contains(".")) {
+                it
             }
-            else if ( character == '.' && result.contains(".")) {
+            else if ( it == '.' && result.contains(".")) {
                 return null
             }
             else {
-                break
+                ""
             }
         }
         val value = result.toDoubleOrNull()
