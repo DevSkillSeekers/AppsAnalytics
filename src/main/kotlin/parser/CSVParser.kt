@@ -1,9 +1,9 @@
 package parser
 
 import convertStringToDate
-import convertStringToSizeUnit
 import interfaces.DataSource
 import model.App
+import toMegaByteSize
 import utilities.Constant
 import utilities.Converter
 import java.io.File
@@ -35,7 +35,7 @@ class CSVParser(private val fileName: String, private val converter: Converter) 
             company = mList[Constant.ColumnIndex.COMPANY],
             category = mList[Constant.ColumnIndex.CATEGORY],
             updatedDate = mList[Constant.ColumnIndex.UPDATE_DATE].convertStringToDate(),
-            size = mList[Constant.ColumnIndex.SIZE].convertStringToSizeUnit(),
+            size = mList[Constant.ColumnIndex.SIZE].toMegaByteSize(),
             installs = mList[Constant.ColumnIndex.INSTALLS].toLong(),
             currentVersion = mList[Constant.ColumnIndex.CURRENT_VERSION],
             requiresAndroid = converter.convertToDouble(mList[Constant.ColumnIndex.REQUIRED_ANDROID])

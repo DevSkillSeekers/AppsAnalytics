@@ -1,10 +1,10 @@
 package parser
 
-import convertStringToSizeUnit
 import interfaces.DataSource
 import model.App
 import org.json.JSONArray
 import org.json.JSONObject
+import toMegaByteSize
 import utilities.Constant
 import utilities.Converter
 import java.io.File
@@ -24,7 +24,7 @@ class JSONParser(private val fileName: String, private val converter: Converter)
             val appCompany = jsonObject.getString(Constant.ColumnIndexConstant.COMPANY)
             val appCategory = jsonObject.getString(Constant.ColumnIndexConstant.CATEGORY)
             val appUpdatedDate = stringToDate(jsonObject.getString(Constant.ColumnIndexConstant.UPDATE_DATE))
-            val appSize = jsonObject.getString(Constant.ColumnIndexConstant.SIZE).convertStringToSizeUnit()
+            val appSize = jsonObject.getString(Constant.ColumnIndexConstant.SIZE).toMegaByteSize()
             val appInstalls = jsonObject.getLong(Constant.ColumnIndexConstant.INSTALLS)
             val appCurrentVersion = jsonObject.get(Constant.ColumnIndexConstant.CURRENT_VERSION)
             val appRequiresAndroid = converter.convertToDouble(jsonObject.getString(Constant.ColumnIndexConstant.REQUIRED_ANDROID))

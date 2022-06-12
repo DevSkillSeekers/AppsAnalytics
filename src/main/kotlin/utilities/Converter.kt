@@ -27,7 +27,7 @@ class Converter {
     }
 
 
-    fun convertToDouble(version:String):Double? = version.split(" ").first().toDoubleOrNull()
+    fun convertToDouble(version:String):Double? = version.subSequence(0, version.indexOf(' ')).toString().toDoubleOrNull()
 
     fun convertToByte(size:String): BigDecimal?{
         var result = ""

@@ -4,7 +4,7 @@ import java.util.*
 fun String.toMegaByteSize(): Double {
     return when (this.uppercase().lastOrNull()) {
         'M' -> this.replace("M", "").toDouble()
-        'K' -> this.replace("K", "").toDouble() / 1024.0
+        'K' -> this.replace("k", "").toDouble() / 1024.0
         'G' -> this.replace("G", "").toDouble() * 1024.0
         else -> 0.0
     }
