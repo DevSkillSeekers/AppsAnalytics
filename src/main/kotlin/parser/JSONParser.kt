@@ -1,3 +1,4 @@
+
 package parser
 
 import convertStringToSizeUnit
@@ -19,33 +20,34 @@ class JSONParser(private val fileName: String, private val converter: Converter)
         val jsonString = jsonFile.readText()
         val jsonArray = JSONArray(jsonString)
         jsonArray.forEach {
-            val jsonObject = JSONObject(it.toString())
-            val appName = jsonObject.getString(Constant.ColumnIndexConstant.APP_NAME)
-            val appCompany = jsonObject.getString(Constant.ColumnIndexConstant.COMPANY)
-            val appCategory = jsonObject.getString(Constant.ColumnIndexConstant.CATEGORY)
-            val appUpdatedDate = stringToDate(jsonObject.getString(Constant.ColumnIndexConstant.UPDATE_DATE))
-            val appSize = jsonObject.getString(Constant.ColumnIndexConstant.SIZE).convertStringToSizeUnit()
-            val appInstalls = jsonObject.getLong(Constant.ColumnIndexConstant.INSTALLS)
-            val appCurrentVersion = jsonObject.get(Constant.ColumnIndexConstant.CURRENT_VERSION)
-            val appRequiresAndroid = converter.convertToDouble(jsonObject.getString(Constant.ColumnIndexConstant.REQUIRED_ANDROID))
-            appList.add(
-                App(
-                    appName,
-                    appCompany,
-                    appCategory,
-                    appUpdatedDate,
-                    appSize,
-                    appInstalls,
-                    appCurrentVersion,
-                    appRequiresAndroid
+            JSONObject(it.toString()).apply {
+                val appName = getString(Constant.ColumnIndexConstant.APP_NAME)
+                val appCompany = getString(Constant.ColumnIndexConstant.COMPANY)
+                val appCategory = getString(Constant.ColumnIndexConstant.CATEGORY)
+                val appUpdatedDate = stringToDate(getString(Constant.ColumnIndexConstant.UPDATE_DATE))
+                val appSize = getString(Constant.ColumnIndexConstant.SIZE).convertStringToSizeUnit()
+                val appInstalls = getLong(Constant.ColumnIndexConstant.INSTALLS)
+                val appCurrentVersion = get(Constant.ColumnIndexConstant.CURRENT_VERSION)
+                val appRequiresAndroid = converter.convertToDouble(getString(Constant.ColumnIndexConstant.REQUIRED_ANDROID))
+                appList.add(
+                    App(
+                        appName,
+                        appCompany,
+                        appCategory,
+                        appUpdatedDate,
+                        appSize,
+                        appInstalls,
+                        appCurrentVersion,
+                        appRequiresAndroid
+                    )
                 )
-            )
-        }
+            }}
         return appList
     }
     private fun stringToDate(value: String): Date {
         val formatter = SimpleDateFormat("MMMM d yyyy", Locale.ENGLISH)
         return formatter.parse(value)
-       // return LocalDate.parse(value, DateTimeFormatter.ofPattern("MMMM d yyyy"))
+        // return LocalDate.parse(value, DateTimeFormatter.ofPattern("MMMM d yyyy"))
     }
 }
+
