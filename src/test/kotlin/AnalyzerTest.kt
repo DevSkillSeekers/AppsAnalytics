@@ -25,22 +25,52 @@ internal class AnalyzerTest {
         apps=  mutableListOf()
     }
 
-    private fun appsList(testSet:Int =0):MutableList<App>{
-        val  appList=  mutableListOf<App>()
-        when(testSet){
-            TestConstant.CHANGE_SIZE_UPPER_LOWER_CASE ->{
-                appList.add(App("Books", "Amazon", "Libraries & Demo", Date("5/1/2000"), "21M".convertStringToSizeUnit(), 500000, 4.4,7.0))
-                appList.add( App("AD", "Amazon", "Libraries & Demo", Date("1/1/2020"), "30k".convertStringToSizeUnit(), 30, 9.0,8.0))
-                appList.add(App("Google Photo", "Google ", "Libraries & Demo", Date("2/1/2000"), "5.5g".convertStringToSizeUnit(), 500, 6.0,9.0))
-                appList.add(App("Google Files", "Google", "Medical", Date("1/1/2019"), "5g".convertStringToSizeUnit(), 1000000, 9.0,7.0))
-            }
-            else ->{
-                appList.add(App("Books", "Amazon", "Libraries & Demo", Date("5/1/2000"), "21M".convertStringToSizeUnit(), 500000, 4.4,8.0))
-                appList.add(App("AD", "Amazon", "Libraries & Demo", Date("1/1/2020"), "30M".convertStringToSizeUnit(), 30, 9.0,8.0))
-                appList.add(App("Google Photo", "Google", "Libraries & Demo", Date("2/1/2000"), "50M".convertStringToSizeUnit(), 500, 6.0,4.4))
-                appList.add(App("Google Files", "Google", "Medical", Date("1/1/2019"), "5M".convertStringToSizeUnit(), 1000000, 9.0,6.0))
-            }
-        }
+    private fun appsList(testSet:Int =0):MutableList<App> {
+        val appList = mutableListOf<App>()
+        appList.add(
+            App(
+                "Books",
+                "Amazon",
+                "Libraries & Demo",
+                Date("5/1/2000"),
+                "21M".toMegaByteSize(),
+                500000,
+                4.4,
+                7.0
+            )
+        )
+        appList.add(
+            App("AD",
+                "Amazon",
+                "Libraries & Demo",
+                Date("1/1/2020"),
+                "30k".toMegaByteSize(),
+                30, 9.0,
+                8.0))
+        appList.add(
+            App(
+                "Google Photo",
+                "Google ",
+                "Libraries & Demo",
+                Date("2/1/2000"),
+                "5.5G".toMegaByteSize(),
+                500,
+                6.0,
+                9.0
+            )
+        )
+        appList.add(
+            App(
+                "Google Files",
+                "Google",
+                "Medical",
+                Date("1/1/2019"),
+                "5G".toMegaByteSize(),
+                1000000,
+                9.0,
+                7.0
+            )
+        )
         return appList
     }
 
@@ -174,7 +204,7 @@ internal class AnalyzerTest {
         apps = appsList()
         val version = 9.0
         val percentageOfApps = analyzer.getPercentageAppsRunningOnSpecificVersion(apps,version)
-        assertEquals(50.0, percentageOfApps)
+        assertEquals(25.0, percentageOfApps)
     }
 
     @Test // Test point #4
@@ -190,7 +220,7 @@ internal class AnalyzerTest {
         apps = appsList()
         val rankNumber = 4
         val largestFourApps = analyzer.getLargestApp(apps,rankNumber)
-        val expectedResultValue = listOf("Google Photo", "AD","Books", "Google Files")
+        val expectedResultValue = listOf("Google Photo", "Google Files","Books", "AD")
         assertEquals(expectedResultValue, largestFourApps)
     }
 
@@ -205,7 +235,7 @@ internal class AnalyzerTest {
 
     @Test// Test point #5
     fun should_ReturnNull_When_FindingTopFourLargestApps_With_RankBiggerThanSize() {
-        apps = appsList()
+        apps = mutableListOf()
         val rankNumber= 5
         val largestFourApps = analyzer.getLargestApp(apps,rankNumber)
         assertNull(largestFourApps)

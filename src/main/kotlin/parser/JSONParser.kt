@@ -1,11 +1,11 @@
 
 package parser
 
-import convertStringToSizeUnit
 import interfaces.DataSource
 import model.App
 import org.json.JSONArray
 import org.json.JSONObject
+import toMegaByteSize
 import utilities.Constant
 import utilities.Converter
 import java.io.File
